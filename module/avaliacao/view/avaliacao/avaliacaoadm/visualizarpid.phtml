@@ -1,0 +1,68 @@
+ <div class="container theme-showcase" role="main" style="margin-bottom:10px;padding:0px;">
+    <ol class="breadcrumb" style="margin-bottom: 0px;">
+      <?php if($usuario['id_usuario_tipo'] == 9): ?>
+        <li><a href="<?= $this->url('listarAvaliacoesMedico'); ?>">Avaliações</a></li>
+      <?php else: ?>
+        <?php if($usuario['id_usuario_tipo'] == 8): ?>
+          <li><a href="<?= $this->url('indexFinalizadas'); ?>">Avaliações</a></li>
+        <?php else: ?>
+          <li><a href="<?= $this->url('listaAvaliacaoAdm', array('tipo' => 'M')); ?>">Avaliações</a></li>
+        <?php endif; ?>
+      <?php endif; ?>
+      
+      <li><a href="<?= $this->url('avaliacaoQualitativaAdm', array('id' => $idQualitativa)); ?>">Avaliação qualitativa</a></li>
+      <li class="active">PID</li>
+    </ol>
+  </div>
+
+    <div class="container theme-showcase" role="main">
+      <div class="row">
+          <div class="panel panel-default">
+          <div class="panel-heading">
+              <h3 class="panel-title">
+                Avaliação PID do mês de <?= $this->numeroMes($periodo->mes_referencia); ?>/<?= $periodo->ano_referencia; ?> - <?= $medico->nome_medico; ?>
+              </h3>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                <?php if(empty($avaliacao->arquivo)): ?>
+                  
+                  <?php 
+                    $urlParams = array('medico' => $medico->id, 'periodo' => $periodo->id);
+
+                    $urlParams['idAvaliacao'] = $avaliacao->id;
+                    if($avaliacaoAuditada){
+                      $urlParams['idAvaliacao'] = $avaliacaoAuditada->id;
+                    }
+                    $btnImprimir = '
+                      <button type="button" onclick="location.href='."'".$this->url('imprimirAvaliacaoPid', $urlParams)."'".'" class="btn btn-default" style="float: right;margin-right: 10px;">
+                        <img src="'.$this->basePath('img/imprimir.png').'" alt="Imprimir" title="Imprimir">
+                        Imprimir avaliação
+                      </button>';
+
+                  echo $this->partial('form/medicoauditado', 
+                                            array(
+                                              'formAvaliacao'     => $formAvaliacao, 
+                                              'formAuditado'      => $formAuditado,
+                                              'avaliacao'         => $avaliacao,
+                                              'avaliacaoAuditada' => $avaliacaoAuditada,
+                                              'campos'            => $campos,
+                                              'route'             => '', 
+                                              'imprimir'          => $btnImprimir, 
+                                              'botao'             => '')); 
+                  ?>
+
+                <?php else: ?>
+
+                  <button type="button" class="btn btn-default" onclick="location.href='<?= $this->url('download', array('id' => $avaliacao->id, 'aba' => 7, 'campo' => 'arquivo')); ?>'" style="float: right;">
+                  <img src="<?php echo $this->basePath('img/download.png') ?>" alt="Download PID">
+                  Download PID</button>
+                  
+              <?php endif; ?>
+
+            </div>
+          </div>
+      </div>
+    </div>
+
+    </div>

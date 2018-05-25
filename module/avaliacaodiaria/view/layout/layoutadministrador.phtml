@@ -1,0 +1,156 @@
+<?php echo $this->doctype(); ?>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?php echo $this->headTitle($this->translate('SIGA - Auto avaliação'))->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?php echo $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <!-- Le styles -->
+<?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+                        ->prependStylesheet($this->basePath() . '/css/frontend.css')
+                        ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css')
+                        ->prependStylesheet($this->basePath() . '/css/bootstrap-theme.min.css'); ?>
+
+        <!-- Scripts -->
+        <?php 
+        echo $this->headScript()
+            ->prependFile($this->basePath() . '/js/funcoes.js')
+            ->prependFile($this->basePath() . '/js/Chart.js-master/Chart.min.js')
+            ->prependFile($this->basePath() . '/js/jquery.maskedinput.min.js')
+            ->prependFile($this->basePath() . '/js/jquery.min.js')
+        ; ?>
+
+    </head>
+<body>
+<div id="container">
+<div id="headerBlock">
+  <div class="li-top pr">
+    <i></i>
+    <a class="li-top-logo fl" href="http://www.sigaalliar.com.br/"></a>
+
+<div class="bt-restrita db fr">
+
+    <div class="feLoginForm-topo">
+      <span class="img-restrita fr" style="font-size:13px;font-weight: bold;"><img src="<?= $this->basePath('img/usuario.png') ?>"> 
+      <?php
+        //recuperar usuário
+        $usuario = $this->getHelperPluginManager()->getServiceLocator()->get('session')->read();
+        
+        //pesquisar operador
+        if($usuario['id_usuario_tipo'] == 13){
+          $operador = $this->getHelperPluginManager()
+                            ->getServiceLocator()
+                            ->get('OperadorAvaliacaoDiaria')
+                            ->getOperadoresByParams(array('tb_avaliacaodiaria_operador.id' => $usuario['avaliacao_diaria']))
+                            ->current();
+          echo $operador->nome_operador.' - '.$operador->nome_empresa;
+        }else{
+          echo $usuario['nome'];
+        }
+      ?>
+    
+     <a href="<?= $this->url('logout'); ?>" style="margin-left:8px;">Sair</a></span>
+    </div>
+</div>
+
+
+
+
+
+
+
+        <div class="li-menu fl" style="margin-left:100px;">
+<ul id="pmenu">
+   <li class="drop_ul" id="cat-id_1"><a href="http://www.sigaalliar.com.br/index.php">Home</a></li>
+   <li class="drop_ul" id="cat-id_36"><a href="http://www.sigaalliar.com.br/o-programa-1.html">O Programa</a></li>
+   <li class="drop_ul" id="cat-id_31"><a href="javascript:void(0)">SIGA os melhores<!--[if IE 7]><!--></a><!--<![endif]-->
+   <!--[if lte IE 6]><table><tr><td><![endif]-->
+   <ul class="psubmenu">
+      <li class="drop_ul li_enclose" id="cat-id_3"><a href="http://www.sigaalliar.com.br/agendamento.html" class="horiz_enclose">Agendamento<!--[if IE 7]><!--></a><!--<![endif]-->
+      <!--[if lte IE 6]><table><tr><td><![endif]-->
+      <ul class="psubmenu">
+         <li class="drop_ul li_enclose" id="cat-id_11"><a href="http://www.sigaalliar.com.br/confirmacao.html" class="horiz_enclose">Confirmação</a></li>
+         <li class="drop_ul" id="cat-id_12"><a href="http://www.sigaalliar.com.br/gestao.html">Gestão</a></li>
+         <li class="drop_ul" id="cat-id_13"><a href="http://www.sigaalliar.com.br/ocupacao.html">Ocupação</a></li>
+         <li class="drop_ul" id="cat-id_14"><a href="http://www.sigaalliar.com.br/sistema.html">Sistema</a></li>
+      </ul>
+      <!--[if lte IE 6]></td></tr></table></a><![endif]-->
+         </li>
+      <li class="drop_ul" id="cat-id_6"><a href="http://www.sigaalliar.com.br/processos-producao.html">Processos / Produção<!--[if IE 7]><!--></a><!--<![endif]-->
+      <!--[if lte IE 6]><table><tr><td><![endif]-->
+      <ul class="psubmenu">
+         <li class="drop_ul li_enclose" id="cat-id_19"><a href="http://www.sigaalliar.com.br/producao-e-atendimento.html" class="horiz_enclose">Produção e Atendimento</a></li>
+         <li class="drop_ul" id="cat-id_20"><a href="http://www.sigaalliar.com.br/documentacao-e-entrega.html">Documentação e Entrega</a></li>
+         <li class="drop_ul" id="cat-id_21"><a href="http://www.sigaalliar.com.br/rastreamento.html">Rastreamento</a></li>
+         <li class="drop_ul" id="cat-id_22"><a href="http://www.sigaalliar.com.br/faturamento.html">Faturamento</a></li>
+      </ul>
+      <!--[if lte IE 6]></td></tr></table></a><![endif]-->
+         </li>
+      <li class="drop_ul" id="cat-id_2"><a href="http://www.sigaalliar.com.br/qualidade.html">Qualidade<!--[if IE 7]><!--></a><!--<![endif]-->
+      <!--[if lte IE 6]><table><tr><td><![endif]-->
+      <ul class="psubmenu">
+         <li class="drop_ul li_enclose" id="cat-id_7"><a href="http://www.sigaalliar.com.br/atendimento-e-satisfacao.html" class="horiz_enclose">Atendimento e Satisfação</a></li>
+         <li class="drop_ul" id="cat-id_8"><a href="http://www.sigaalliar.com.br/gestao-de-pessoas.html">Gestão de Pessoas</a></li>
+         <li class="drop_ul" id="cat-id_9"><a href="http://www.sigaalliar.com.br/documentacao-legal.html">Documentação Legal</a></li>
+         <li class="drop_ul" id="cat-id_10"><a href="http://www.sigaalliar.com.br/gestao-ambiental.html">Gestão Ambiental</a></li>
+      </ul>
+      <!--[if lte IE 6]></td></tr></table></a><![endif]-->
+         </li>
+      <li class="drop_ul" id="cat-id_4"><a href="http://www.sigaalliar.com.br/seguranca.html">Segurança<!--[if IE 7]><!--></a><!--<![endif]-->
+      <!--[if lte IE 6]><table><tr><td><![endif]-->
+      <ul class="psubmenu">
+         <li class="drop_ul li_enclose" id="cat-id_15"><a href="http://www.sigaalliar.com.br/assistencial.html" class="horiz_enclose">Assistencial</a></li>
+         <li class="drop_ul" id="cat-id_16"><a href="http://www.sigaalliar.com.br/equipamentos-e-instalacoes.html">Equipamentos e Instalações</a></li>
+         <li class="drop_ul" id="cat-id_17"><a href="http://www.sigaalliar.com.br/higienizacao.html">Higienização</a></li>
+         <li class="drop_ul" id="cat-id_18"><a href="http://www.sigaalliar.com.br/suprimentos.html">Suprimentos</a></li>
+      </ul>
+      <!--[if lte IE 6]></td></tr></table></a><![endif]-->
+         </li>
+   </ul>
+   <!--[if lte IE 6]></td></tr></table></a><![endif]-->
+   </li>
+   <li class="drop_ul" id="cat-id_35"><a href="<?= $this->url('avaliacaoAgendamento'); ?>">Auto Avaliação</a></li>
+   <li class="drop_ul" id="cat-id_32"><a href="javascript:void(0)">Resultados<!--[if IE 7]><!--></a><!--<![endif]-->
+   <!--[if lte IE 6]><table><tr><td><![endif]-->
+   <ul class="psubmenu">
+      <li class="drop_ul li_enclose" id="cat-id_33"><a href="http://201.94.154.35:8095/sadigweb/dap" target="_blank" class="horiz_enclose">Geral</a></li>
+      <li class="drop_ul" id="cat-id_34"><a href="http://www.sigaalliar.com.br/detalhado.html">Detalhado</a></li>
+   </ul>
+   <!--[if lte IE 6]></td></tr></table></a><![endif]-->
+   </li>
+   <li class="drop_ul" id="cat-id_30"><a href="http://www.sigaalliar.com.br/noticias.html">Notícias</a></li>
+   <li class="drop_ul" id="cat-id_30"><a href="http://www.sigaalliar.com.br/contato.html">Contato</a></li>
+   <li class="drop_ul li_enclose" id="cat-id_5"><a href="<?= $this->url('alterarSenha'); ?>" class="horiz_enclose">Alterar senha</a></li>
+</ul></div> 
+ </div>
+ </div>
+
+
+<div class="banner-interna fl"></div>
+
+<div class="corpo-full-interna fl">
+  <div class="corpo al">
+    <div class="container theme-showcase" role="main" style="margin-top:100px;padding:0px;">
+        <?= $this->flashMessenger()->render('error', array('alert', 'alert-danger')) ?>   
+
+        <?= $this->flashMessenger()->render('warning', array('alert',  'alert-warning')) ?>
+        <?= $this->flashMessenger()->render('success', array('alert',  'alert-success')) ?>
+     
+     </div>
+    <?php echo $this->content; ?>
+
+  </div>
+</div>
+
+<div id="footerBlock">
+    <div class="li-rod">
+      <div class="li-rod-horario fr ac"></div>
+    </div>
+</div>
+        <?php echo $this->inlineScript() ?>
+    </body>
+</html>

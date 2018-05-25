@@ -1,0 +1,36 @@
+<?php 
+	$categoria = '';
+	$quantidadeCampos = 0;
+?>
+<?php foreach ($campos as $campo) {
+
+	if($campo['aparecer'] == 'S'){
+		$quantidadeCampos++;
+		//se for uma nova categoria escrever o título da categoria
+		if($categoria != $campo['nome_categoria']){
+			$categoria = $campo['nome_categoria'];
+			echo '<h3>'.$campo['nome_categoria'].'</h3>';
+		}
+
+		//pegar elemento do form
+		$elemento = $form->get($campo['nome_campo']);
+		//escrever campo
+		echo '<p class="pergunta-'.$quantidadeCampos.'">'.$elemento->getLabel();
+		echo $this->formElement($elemento);
+		echo $this->formElement($form->get('observacoes_'.$campo['nome_campo']));
+?>
+		<?php if(!empty($avaliacao['anexo_'.$campo['nome_campo']])): ?>
+		<div style="float: right;">
+		<label>
+		        <a href="<?= $this->url('download', array('id' => $avaliacao->id, 'campo' => 'anexo_'.$campo['nome_campo'], 'aba' => $aba)); ?>">
+		        <img src="<?= $this->basePath('img/download.png'); ?>">Download anexo</a>
+		</label>
+		</div>
+		<?php endif; ?> 
+	</p>
+
+<?php
+	}
+}
+
+?>

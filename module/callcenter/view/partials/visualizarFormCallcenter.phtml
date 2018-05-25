@@ -1,0 +1,80 @@
+<?php 
+	$categoria = '';
+	$quantidadeCampos = 0;
+?>
+<?php foreach ($campos as $key => $campo) {
+
+	if($campo['aparecer'] == 'S'){
+		$quantidadeCampos++;
+
+		//pular campos de media mensal e diaria
+		$medias = array('meta_agendamento_mensal', 'meta_agendamento_mensal_dias', 'meta_mensal', 'dias_meta');
+		if(in_array($campo['nome_campo'], $medias)){
+			continue;
+		}
+		//se for uma nova categoria escrever o título da categoria
+		if($categoria != $campo['nome_categoria']){
+			$categoria = $campo['nome_categoria'];
+			echo '<h3>'.$campo['nome_categoria'].'</h3>';
+		}
+
+		//pegar elemento do form
+		$elemento = $form->get($campo['nome_campo']);
+		$elementoOriginal = $formOriginal->get($campo['nome_campo']);
+
+		if($campo['nome_campo'] == 'meta_agendamento'){
+			echo '<p class="pergunta-'.$quantidadeCampos.'2">';
+			echo '<table style="width: 100%;">';
+			echo '<tr>';
+			echo '<td>'.$elemento->getLabel().' '.$this->formElement($elemento).'</td>';
+			echo '<td>'.$form->get('meta_mensal')->getLabel().'<br> '.$this->formElement($form->get('meta_mensal')).'</td>';
+			echo '<td>'.$form->get('meta_agendamento_mensal')->getLabel().' '.$this->formElement($form->get('meta_agendamento_mensal')).'</td>';
+			echo '<td>'.$form->get('meta_agendamento_mensal_dias')->getLabel().' '.$this->formElement($form->get('meta_agendamento_mensal_dias')).'</td>';
+			echo '<td>'.$form->get('dias_meta')->getLabel().' '.$this->formElement($form->get('dias_meta')).'</td>';
+			//die($form->get('dias_meta')->getValue());
+			
+			echo '</tr>';
+			echo '</table>';
+			echo '</p>';
+
+		}else{
+			//escrever campo
+			echo '<p class="pergunta-'.$quantidadeCampos.'" style="margin-top:7px;">'.$elemento->getLabel();
+			echo '</p>';
+			
+			echo '<p class="pergunta-'.$quantidadeCampos.'2">';
+			echo $this->formElement($elemento);
+			echo $this->formElementErrors($elemento, array('class' => 'errovalidacao'));
+
+			echo '<div id="div_'.$campo['nome_campo'].'" style="display:none;">';
+			echo $this->formElement($elementoOriginal);
+			echo '</div>';			
+
+			echo '</p>';
+
+		}
+
+		?>
+		<div style="float: right;">
+		<?php if($formOriginal && $avaliacao[$campo['nome_campo']] != $avaliacaoOriginal[$campo['nome_campo']]): ?>
+			<label style="display:none;" id="esconder_<?= $campo['nome_campo']; ?>">
+			        <a onclick="$('#div_<?= $campo['nome_campo']; ?>').hide();$('#esconder_<?= $campo['nome_campo']; ?>').hide();">
+			        	<img src="<?= $this->basePath('img/auditar.png'); ?>">Esconder
+			    	</a>
+			</label>
+
+			<label>
+			        <a onclick="$('#div_<?= $campo['nome_campo'] ?>').show();$('#esconder_<?= $campo['nome_campo'] ?>').show();">
+			        	<img src="<?= $this->basePath('img/ok.png'); ?>">Visualizar resp. original
+			    	</a>
+			</label>
+		<?php endif; ?>
+
+
+		</div>
+
+<?php
+	}
+}
+
+?>

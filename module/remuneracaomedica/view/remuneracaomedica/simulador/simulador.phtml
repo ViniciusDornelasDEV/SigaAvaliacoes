@@ -1,0 +1,339 @@
+
+
+                <div id="page-content-wrapper">
+
+                    <div id="page-content" style="margin-top: 0px; min-height: 891px;">
+
+                        <div class="row">
+                            <div class="col-md-7">
+
+                                <div class="panel">
+                                    <div class="panel-body">
+                                        <h3 class="title-hero">
+                                            RESPONDA AS QUESTÕES
+                                        </h3>
+                                            <form class="form-horizontal bordered-row ng-pristine ng-valid" role="form">
+
+                                                <!-- TEMPO DE CASA -->                                      
+                                                <div class="form-group">
+                                                    <label for="" class="col-sm-5 control-label" style="padding-top:22px;">Quanto tempo de casa?</label>
+                                                    <div class="col-sm-6">
+                                                        <input onchange="calcularPontuacao();" style="width:100%;" id="tempo_casa" name="tempo_casa" type="text" data-slider-ticks="[0, 8, 15, 23, 30]" data-slider-ticks-snap-bounds="0" data-slider-value="0" data-slider-ticks-labels='["0", "8", "15", "23", "30"]'/>
+                                                    </div>
+                                                    <div class="col-sm-1 ng-hide" ng-show="resp1">
+                                                        <i class="glyph-icon icon-elusive-ok font-orange"></i>
+                                                    </div>
+                                                </div>
+
+                                                <!-- PERÍODO SEMANA -->
+                                                <div class="form-group">
+                                                    <label for="" class="col-sm-5 control-label" style="padding-top:22px;">Qual número de períodos fixos na semana? (Segunda a Sexta)</label>
+                                                    <div class="col-sm-6">
+                                                        <input onchange="calcularPontuacao();" style="width:100%;" id="periodo_fixo_semana" type="text" data-slider-ticks="[1, 3, 6, 8, 10]" data-slider-ticks-snap-bounds="0" data-slider-value="0" data-slider-ticks-labels='["1", "3", "6", "8", "10"]'/>
+                                                    </div>
+                                                    <div class="col-sm-1 ng-hide" ng-show="resp1">
+                                                        <i class="glyph-icon icon-elusive-ok font-orange"></i>
+                                                    </div>
+                                                </div>
+
+                                                <!-- PERÍODO MÊS -->
+                                                <div class="form-group">
+                                                    <label for="" class="col-sm-5 control-label" style="padding-top:22px;">Qual número de períodos fixos de finais de semana por mês?</label>
+                                                    <div class="col-sm-6">
+                                                        <input onchange="calcularPontuacao();" style="width:100%;" id="periodo_fixo_mes" type="text" data-slider-ticks="[1, 3, 5, 6, 8]" data-slider-ticks-snap-bounds="0" data-slider-value="0" data-slider-ticks-labels='["1", "3", "5", "6", "8"]'/>
+                                                    </div>
+                                                    <div class="col-sm-1 ng-hide" ng-show="resp1">
+                                                        <i class="glyph-icon icon-elusive-ok font-orange"></i>
+                                                    </div>
+                                                </div>
+
+                                                <!-- PERÍODO SEMANA -->
+                                                <div class="form-group">
+                                                    <label for="" class="col-sm-5 control-label" style="padding-top:22px;">Qual número de períodos realizados em unidades estratégicas?</label>
+                                                    <div class="col-sm-6">
+                                                        <input onchange="calcularPontuacao();" style="width:100%;" id="unidades_estrategicas" type="text" data-slider-ticks="[1, 3, 6, 8, 10]" data-slider-ticks-snap-bounds="0" data-slider-value="0" data-slider-ticks-labels='["1", "3", "6", "8", "10"]'/>
+                                                    </div>
+                                                    <div class="col-sm-1 ng-hide" ng-show="resp1">
+                                                        <i class="glyph-icon icon-elusive-ok font-orange"></i>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-sm-5 control-label">Qual sua formação acadêmica?</label>
+                                                    <div class="col-sm-6">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="checkbox checkbox-primary">
+                                                                    <label>
+                                                                        <input onclick="calcularPontuacao();" id="especialista_cbr" name="formacao_academica" value="4" type="checkbox">
+                                                                        Título de Especialista pelo CBR
+                                                                    </label>
+                                                                </div>
+                                                                <div class="checkbox checkbox-primary">
+                                                                    <label>
+                                                                        <input onclick="calcularPontuacao();" id="mba_mestrado" name="formacao_academica" value="4" type="checkbox">
+                                                                        MBA ou Mestrado
+                                                                    </label>
+                                                                </div>
+                                                                <div class="checkbox checkbox-primary">
+                                                                    <label>
+                                                                        <input onclick="calcularPontuacao();" id="doutorado" name="formacao_academica" value="4" type="checkbox">
+                                                                        Doutorado
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="form-group">
+                                                    <label class="col-sm-5 control-label">Quais tipos de exames que realiza?</label>
+                                                    <div class="col-sm-6">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="checkbox checkbox-primary">
+                                                                    <label>
+                                                                        <input onclick="calcularPontuacao();" id="modo_b" name="exames_realiza" value="2" type="checkbox">
+                                                                        Modo B Geral
+                                                                    </label>
+                                                                </div>
+                                                                <div class="checkbox checkbox-primary">
+                                                                    <label>
+                                                                        <input onclick="calcularPontuacao();" id="doppler_geral" name="exames_realiza" value="2" type="checkbox">
+                                                                        Doppler Geral
+                                                                    </label>
+                                                                </div>
+                                                                <div class="checkbox checkbox-primary">
+                                                                    <label>
+                                                                        <input onclick="calcularPontuacao();" id="dopper_vascular" name="exames_realiza" value="2" type="checkbox">
+                                                                        Doppler Vascular
+                                                                    </label>
+                                                                </div>
+                                                                <div class="checkbox checkbox-primary">
+                                                                    <label>
+                                                                        <input onclick="calcularPontuacao();" id="musculo_esqueletico" name="exames_realiza" value="2" type="checkbox">
+                                                                        Músculo-esquelético
+                                                                    </label>
+                                                                </div>        
+                                                                <div class="checkbox checkbox-primary">
+                                                                    <label>
+                                                                        <input onclick="calcularPontuacao();" id="procedimentos_usg" name="exames_realiza" value="2" type="checkbox">
+                                                                        Procedimentos guiados por USG
+                                                                    </label>
+                                                                </div> 
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </form>                                                        
+
+                                       
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-5">
+                                <div class="panel">
+                                    <div class="panel-heading">
+                                      <h3 class="panel-title">Classificação</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-md-4">
+
+                                            </div>
+                                            <div class="col-md-4">
+                                                <h3 style="text-align:center;">
+                                                    Nível <span id="nivel">I</span>
+                                                </h3>
+                                                <div style="width: 100%;text-align: center;" class="chart" data-percent="13"></div>   
+                                            </div>
+                                            <div class="col-md-4">
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="panel">
+                                    <div class="panel-body">
+                                        <h3 class="title-hero">
+                                            Tabela de Remuneração
+                                        </h3>
+                                        <div class="example-box-wrapper">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width:20%">Níveis</th>
+                                                        <th style="width:20%">Fator</th>
+                                                        <th style="width:20%">Modo B</th>
+                                                        <th style="width:20%">Doppler Geral</th>
+                                                        <th style="width:20%">Doppler Vascular</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="nivelClass" id="nivel1">
+                                                        <td><strong style="color:#000">I</strong></td>
+                                                        <td>0,90</td>
+                                                        <td>27,00</td>
+                                                        <td>43,20</td>
+                                                        <td>50,40</td>
+                                                    </tr>
+                                                    <tr id="nivel2">
+                                                        <td><strong style="color:#000">II</strong></td>
+                                                        <td>0,95</td>
+                                                        <td>28,50</td>
+                                                        <td>45,60</td>
+                                                        <td>53,20</td>
+                                                    </tr>
+                                                    <tr id="nivel3">
+                                                        <td><strong style="color:#000">III</strong></td>
+                                                        <td>1,00</td>
+                                                        <td>30,00</td>
+                                                        <td>48,00</td>
+                                                        <td>56,00</td>
+                                                    </tr>
+                                                    <tr id="nivel4">
+                                                        <td><strong style="color:#000">IV</strong></td>
+                                                        <td>1,05</td>
+                                                        <td>31,50</td>
+                                                        <td>50,40</td>
+                                                        <td>58,80</td>
+                                                    </tr>
+                                                    <tr id="nivel5">
+                                                        <td><strong style="color:#000">V</strong></td>
+                                                        <td>1,10</td>
+                                                        <td>33,00</td>
+                                                        <td>52,80</td>
+                                                        <td>61,60</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>                                
+
+                                <a href="<?= $this->url('simulador'); ?>" class="ng-hide btn btn-danger">Reiniciar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <script type="text/javascript">
+           $("#tempo_casa").slider({
+                ticks: [0, 8, 15, 23, 30],
+                ticks_positions: [0, 26, 49, 76, 100],
+                ticks_labels: ['0', '8', '15', '23', '30'],
+                ticks_snap_bounds: 0
+            });
+
+            $("#periodo_fixo_semana").slider({
+                ticks: [1, 3, 6, 8, 10],
+                ticks_positions: [0, 25, 60, 80, 100],
+                ticks_labels: ['1', '3', '6', '8', '10'],
+                ticks_snap_bounds: 0
+            });
+
+            $("#periodo_fixo_mes").slider({
+                ticks: [1, 3, 5, 6, 8],
+                ticks_positions: [0, 37, 60, 75, 100],
+                ticks_labels: ['1', '3', '5', '6', '8'],
+                ticks_snap_bounds: 0
+            });
+            
+            $("#unidades_estrategicas").slider({
+                ticks: [1, 3, 6, 8, 10],
+                ticks_positions: [0, 25, 60, 80, 100],
+                ticks_labels: ['1', '3', '6', '8', '10'],
+                ticks_snap_bounds: 0
+            });
+
+        </script>
+<script type="text/javascript">
+var pontos = 13;
+$(function() {
+    $('.chart').easyPieChart({
+        easing: 'easeOutElastic',
+        delay: 3000,
+        barColor: '#69c',
+        trackColor: '#ace',
+        scaleColor: false,
+        lineWidth: 20,
+        trackWidth: 16,
+        lineCap: 'butt',
+    });
+});
+
+function calcularPontuacao(){
+    pontos = 0;
+    nivel = 1;
+    pontos = pontos + ($('#tempo_casa').val() * 1);
+    pontos = pontos + ($('#periodo_fixo_semana').val() * 6);
+    pontos = pontos + ($('#periodo_fixo_mes').val() * 4);
+    pontos = pontos + ($('#unidades_estrategicas').val() * 3);
+
+    pontos = pontos + valorCheckbox("#especialista_cbr");
+    pontos = pontos + valorCheckbox("#mba_mestrado");
+    pontos = pontos + valorCheckbox("#doutorado");
+
+    pontos = pontos + valorCheckbox("#modo_b");
+    pontos = pontos + valorCheckbox("#doppler_geral");
+    pontos = pontos + valorCheckbox("#dopper_vascular");
+    pontos = pontos + valorCheckbox("#musculo_esqueletico");
+    pontos = pontos + valorCheckbox("#procedimentos_usg");
+
+    //retirar marcação de todos os niveis
+    $("#nivel1, #nivel2, #nivel3, #nivel4, #nivel5").removeClass("nivelClass");
+    
+    //calcular nível
+    calcularNivel(pontos);
+
+    $('.chart').data('easyPieChart').update(pontos);
+}
+
+function valorCheckbox(marcador){
+    if($(marcador).is(":checked")){
+        return parseInt($(marcador).val());
+    }else{
+        return 0;
+    }
+}
+
+function calcularNivel(pontos){
+    //0 a 20 nível 1
+    if(pontos < 21){
+        $("#nivel").text("I");
+        $("#nivel1").addClass("nivelClass");
+    }
+
+    //21 a 40 nível 2
+    if((pontos > 20) && (pontos < 41)){
+        $('#nivel').text('II');
+        $("#nivel2").addClass("nivelClass");
+    }
+
+    //41 a 60 nível 3
+    if((pontos > 40) && (pontos < 61)){
+        $('#nivel').text('III');
+        $("#nivel3").addClass("nivelClass");
+    }
+
+    //61 a 80 nível 4
+    if((pontos > 60) && (pontos < 81)){
+        $('#nivel').text('IV');
+        $("#nivel4").addClass("nivelClass");
+    }
+
+    //81 a 100 nível 5
+    if(pontos > 80){
+        $('#nivel').text('V');
+        $("#nivel5").addClass("nivelClass");
+    }
+}
+</script>

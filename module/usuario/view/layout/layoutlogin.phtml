@@ -1,0 +1,44 @@
+
+<html>
+    <head>
+        <?php echo $this->headTitle('SIGA- Login')->setSeparator(' - ')->setAutoEscape(false) ?>
+        <meta charset="utf-8">
+        <?php echo $this->headTitle($this->translate('SIGA - Auto avaliação'))->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?php echo $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <?php //echo $this->headMeta()
+            //->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            //->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <!-- Le styles -->
+        <?php 
+        echo $this->headLink(array(
+                        'rel' => 'shortcut icon', 
+                        'type' => 'image/vnd.microsoft.icon', 
+                        'href' => $this->basePath() . '/img/favicon.ico'
+                        )
+                    )
+                    ->prependStylesheet($this->basePath() . '/css/login/css/frontend.css');
+        ?>
+
+        <!-- Scripts -->
+        <?php echo $this->headScript()
+            ->prependFile($this->basePath() . '/bootstrap/js/bootstrap.js')
+            ->prependFile($this->basePath() . '/js/jquery.min.js');
+        ; ?>
+
+    </head>
+  <body>
+        <?= $this->flashMessenger()->render('error', array('alert', 'alert-danger')) ?>   
+
+        <?= $this->flashMessenger()->render('warning', array('alert',  'alert-warning')) ?>
+        <?= $this->flashMessenger()->render('success', array('alert',  'alert-success')) ?>
+        <?php echo $this->content; ?>
+
+    </body>
+</html>

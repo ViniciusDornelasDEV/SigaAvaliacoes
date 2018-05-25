@@ -1,0 +1,100 @@
+ <div class="container theme-showcase" role="main" style="margin-bottom:10px;padding:0px;">
+      <button type="button" class="btn btn-default" onclick="location.href='<?= $this->url('empresaNovo'); ?>'" style="float: right;width:100px;">
+      <img src="<?php echo $this->basePath('img/novo.png') ?>" alt="Novo">
+      Novo</button>
+<ol class="breadcrumb" style="margin-bottom: 0px;">
+  <li><a href="<?= $this->url('home'); ?>">Home</a></li>
+  <li><a href="<?= $this->url('empresa'); ?>">Empresas</a></li>
+  <li class="active">Alterar</li>
+</ol>
+  </div>
+
+    <div class="container theme-showcase" role="main">
+      <div class="row">
+          <div class="panel panel-default">
+          <div class="panel-heading">
+              <h3 class="panel-title">Cadastro de empresa</h3>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                  <?php echo $this->partial('form/generic', array('form'=> $formEmpresa, 'route'=> '')) ?>
+            </div>
+          </div>
+      </div>
+    </div>
+    </div>
+
+    <!-- SALVAR ARQUIVO -->
+    <div class="container theme-showcase" role="main">
+      <div class="row">
+          <div class="panel panel-default">
+          <div class="panel-heading">
+              <h3 class="panel-title">Inclusão de arquivo</h3>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                  <?php echo $this->partial('form/generic', array('form'=> $formArquivo, 'route'=> '')) ?>
+            </div>
+          </div>
+      </div>
+    </div>
+    </div>
+
+    <!-- ARQUIVOS VINCULADOS -->
+    <?php if(!$arquivos || $arquivos->count() == 0): ?>
+    <div class="container theme-showcase" role="main">
+      <div class="alert alert-info">Nenhum arquivo vinculado!</div>
+    </div>
+    <?php else: ?>
+
+     <div class="container theme-showcase" role="main">
+      <div class="row">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Arquivos vinculados</h3>
+            </div>
+            <div class="panel-body">
+              <table class="table">
+                <tr>
+                  <th style="text-align: center">Arquivo</th>
+                  <th style="text-align: center">Ações</th>
+              </tr>
+
+              <?php 
+              foreach ($arquivos as $arquivo): 
+              ?>
+              <tr>
+                <td style="text-align: center"><?= $arquivo->nome ?></td>
+                <td style="text-align: center">
+                  <img src="<?php echo $this->basePath('img/download.png') ?>" style="cursor: pointer;" onclick="location.href='<?= $this->url('downloadArquivo', array('id' => $arquivo['id'])); ?>'" title="Download">
+                  
+                  <span style="margin-right:4px;"></span>
+
+                  <img src="<?php echo $this->basePath('img/replicar.png') ?>" style="cursor: pointer;" onclick="replicar('<?= $this->url('replicarArquivo', array('id' => $arquivo['id'])); ?>');" title="Replicar">
+                  
+                  <span style="margin-right:4px;"></span>  
+                  
+                  <img src="<?php echo $this->basePath('img/deletar.png') ?>" style="cursor: pointer;" onclick="alerta('<?= $this->url('arquivoDeletar', array('id' => $arquivo->id)); ?>', 'deletar');" title="Deletar">
+                </td>
+                
+              
+              </tr>
+            <?php endforeach; ?>
+            </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    <?php endif; ?>
+    <script type="text/javascript">
+      function replicar(url){
+        bootbox.confirm("Tem certeza que deseja replicar este arquivo para todas as empresas?", function(result) {
+              if(result){
+                location.href = url;
+              }
+            }); 
+      }
+    </script>
+    
+
+

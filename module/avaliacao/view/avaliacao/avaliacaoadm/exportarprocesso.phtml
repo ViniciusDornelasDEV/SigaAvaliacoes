@@ -1,0 +1,140 @@
+<?php echo $this->doctype(); ?>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+    </head>
+
+<?php
+  $nome_arquivo = "Processo";
+  header("Content-type: application/vnd.ms-excel");
+  header("Content-type: application/force-download");
+  header("Content-Disposition: attachment; filename=$nome_arquivo.xls");
+  header("Pragma: no-cache");
+?>
+<body>
+  <table border="1">
+    <tbody>
+        <!-- Confirmação -->
+        <tr>
+          <td colspan="2" style="font-weight: bold;font-size:35px;">Documentação e Entrega</td>
+        </tr>
+        <tr>
+          <td colspan="2">Utilização de scanner nos processos definidos </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->scannerprocessos); ?></td>
+          <td><?= $avaliacao->observacoes_scannerprocessos ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Impressão de RM, TC, US e RX em Papel </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->impressaorm); ?></td>
+          <td><?= $avaliacao->observacoes_impressaorm ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Entrega de imagens e CD na Hora (RM e TC) </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->entregacd); ?></td>
+          <td><?= $avaliacao->observacoes_entregacd ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Impressão do laudo somente dos pacientes que forem retirar </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->impressaolaudo); ?></td>
+          <td><?= $avaliacao->observacoes_impressaolaudo ?></td>
+        </tr>
+
+
+        <!-- Gestão -->
+        <tr>
+          <td colspan="2" style="font-weight: bold;font-size:35px;">Faturamento</td>
+        </tr>
+        <tr>
+          <td colspan="2">Preenchimento da TISS na recepção </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->tissrecepcao); ?></td>
+          <td><?= $avaliacao->observacoes_tissrecepcao ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Envio diário de documentação para o setor de faturamento</td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->faturamento); ?></td>
+          <td><?= $avaliacao->observacoes_faturamento ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Kit padrão de material para exames contrastados e cadastrados no sistema</td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->kitexames); ?></td>
+          <td><?= $avaliacao->observacoes_kitexames ?></td>
+        </tr>
+
+        <!-- Gestão -->
+        <tr>
+          <td colspan="2" style="font-weight: bold;font-size:35px;">Produção e Atendimento</td>
+        </tr>
+        <tr>
+          <td colspan="2">Sistema de Totem com senha e painel </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->sistematotem); ?></td>
+          <td><?= $avaliacao->observacoes_sistematotem ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Equipes dedicadas de atendimento </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->equipeatendimento); ?></td>
+          <td><?= $avaliacao->observacoes_equipeatendimento ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">% Pré-autorização de exames / célula de autorização da unidade </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->atorizacaoexames); ?></td>
+          <td><?= $avaliacao->observacoes_atorizacaoexames ?></td>
+        </tr>
+
+
+        <tr>
+          <td colspan="2">Agenda de RM de 20 min em 20 min </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->agendarm); ?></td>
+          <td><?= $avaliacao->observacoes_agendarm ?></td>
+        </tr>
+
+        <!-- Rastreamento -->
+        <tr>
+          <td colspan="2" style="font-weight: bold;font-size:35px;">Rastreamento</td>
+        </tr>
+        <tr>
+          <td colspan="2">Utilização do leitor de código de barras nos processos definidos</td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->leitorbarras); ?></td>
+          <td><?= $avaliacao->observacoes_leitorbarras ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Filas de atendimento na área técnica (RIS)</td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->ris); ?></td>
+          <td><?= $avaliacao->observacoes_ris ?></td>
+        </tr>
+    </tbody>
+  </table>
+</body>

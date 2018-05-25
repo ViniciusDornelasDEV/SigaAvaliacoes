@@ -1,0 +1,75 @@
+
+
+
+
+
+
+
+
+
+
+ <h1>Formulário de Auto Avaliação</h1>
+
+
+
+
+
+
+<!--
+  Livedate: 08.05.2015 21:07:23 / Killdate: 05.05.2025 21:07:23 
+-->
+<div style="display:none"><input name="unidade" id="unidade" value="Formulário de Auto Avaliação" type="text"></div>
+<a href="<?= $this->url('avaliacoesEmpresa'); ?>" class="acesso-usuario db"> Para ver os resuldados dos meses anteriores clique aqui</a>
+<div class="formulario restrito">
+
+<div class="pager-form">
+  <?php 
+    $arrayPeriodo = array('mes' => $mes, 'ano' => $ano);
+  ?>
+  <a class="link-auditoria" data-slide-index="0" href="<?= $this->url('historicoAgendamentoVisualizar', $arrayPeriodo); ?>">Agendamento</a>
+  <a class="link-comercial" data-slide-index="1" href="<?= $this->url('historicoComercialVisualizar', $arrayPeriodo); ?>">Comercial</a>
+  <a class="link-processo" data-slide-index="2" href="<?= $this->url('historicoProcessoVisualizar', $arrayPeriodo); ?>">Processos e Produção</a>
+  <a class="link-qualidade active" data-slide-index="3" href="#">Qualidade e Segurança</a>
+  <a class="link-seguranca" data-slide-index="4" href="<?= $this->url('historicoSegurancaVisualizar', $arrayPeriodo); ?>">Experiência e satisfação do paciente</a>
+  <a class="link-ata" data-slide-index="5" href="<?= $this->url('historicoAtaVisualizar', $arrayPeriodo); ?>">Plano de ação</a>
+  <a class="link-arquivos" data-slide-index="4" href="<?= $this->url('avaliacaoArquivos', array('empresa' => $empresa, 'redirecionar' => 1, 'ano' => $ano, 'mes' => $mes, 'avaliacao' => 0, 'menu' => 'H')); ?>">Arquivos SIGA para download</a>
+</div>
+
+<div style="max-width: 100%;" class="bx-wrapper"><div style="width: 100%; overflow: hidden; position: relative; height: auto;" class="bx-viewport"><ul style="width: 615%; position: relative; transition-duration: 0s; transform: translate3d(0px, 0px, 0px);" class="slider-form">
+<li style="float: left; list-style: outside none none; position: relative; width: 992px;"> 
+<div class="form-qualidade">
+
+<?php if(!$avaliacao): ?>
+<label>
+    Não existe formulário respondido para o período informado!
+</label>
+
+<?php else: ?>
+
+<form class="form-inline" name="formQualidade" id="formQualidade" enctype="multipart/form-data" role="form" method="POST" action="#">
+
+<?php 
+  //CRIAR UMA PARTIAL, USAR FORM E CAMPOS
+  echo $this->partial('form/auditado', array(
+                                              'formAuditado'  => $formAuditado,
+                                              'formAvaliacao' =>  $formAvaliacao,
+                                              'campos'=> $campos, 
+                                              'avaliacaoAuditada' => $avaliacaoAuditada, 
+                                              'avaliacao' => $avaliacao,
+                                              'aba'   => 13
+                                            ));
+?>
+
+
+</div>
+</form>
+<?php endif; ?>
+</li>
+</ul>
+</div>
+
+</div>
+</div>
+
+
+

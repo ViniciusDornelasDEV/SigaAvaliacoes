@@ -1,0 +1,74 @@
+ <div class="container theme-showcase" role="main" style="margin-bottom:10px;padding:0px;">
+    <ol class="breadcrumb" style="margin-bottom: 0px;">
+      <li><a href="<?= $this->url('medicoIndex'); ?>">Avaliações</a></li>
+      <li >Avaliação qualitativa</li>
+      <li class="active">PID</li>
+    </ol>
+  </div>
+
+    <div class="container theme-showcase" role="main" style="margin-bottom:10px;">
+      <div class="row">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                  Avaliação PID do mês de <?= $this->numeroMes($periodo->mes_referencia); ?>/<?= $periodo->ano_referencia; ?> - <?= $medico->nome_medico; ?>
+                </h3>
+              </div>
+              <div class="panel-body">
+                  <div class="form-group">
+                    <?php 
+                      //Gerar botão de finalizar avaliação
+                      $botao = "<button type='submit' class='btn btn-danger' style='float: right;margin-right: 10px;'>
+                              <img src='".$this->basePath('img/ok.png')."'  alt='Finalizar' title='Finalizar'>
+                              Finalizar avaliações
+                            </button>";
+
+                      
+                    echo $this->partial('form/umacoluna', array('form'=> $formArquivo, 'route'=> '', 'imprimir' => false, 'botao' => $botao)) ?>
+
+
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+
+    <div class="container theme-showcase" role="main">
+      <div class="row">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                  Avaliação PID do mês de <?= $this->numeroMes($periodo->mes_referencia); ?>/<?= $periodo->ano_referencia; ?> - <?= $medico->nome_medico; ?>
+                </h3>
+              </div>
+              <div class="panel-body">
+                  <div class="form-group">
+                    <?php 
+                      //Gerar botão de finalizar avaliação
+                      $botao = "
+                        <button type='submit' class='btn btn-danger' style='float: right;margin-right: 10px;'>
+                          <img src='".$this->basePath('img/ok.png')."' name='finalizar' alt='Finalizar' title='Finalizar'>
+                          Finalizar avaliações
+                        </button>
+                        <button type='submit' name='salvar' class='btn btn-success' style='float: right;margin-right: 10px;''>
+                          <img src='".$this->basePath('img/salvar.png')."' alt='Salvar' title='Salvar'>
+                          Salvar
+                        </button>";
+
+                      $urlParams = array('medico' => $medico->id, 'periodo' => $periodo->id);
+                      if($avaliacao){
+                        $urlParams['idAvaliacao'] = $avaliacao->id;
+                      }
+                      $btnImprimir = '
+                        <button type="button" onclick="location.href='."'".$this->url('imprimirAvaliacaoPid', $urlParams)."'".'" class="btn btn-default" style="float: right;margin-right: 10px;">
+                          <img src="'.$this->basePath('img/imprimir.png').'" alt="Imprimir" title="Imprimir">
+                          Imprimir avaliação
+                        </button>';
+                    ?>
+                    <?php echo $this->partial('form/umacoluna', array('form'=> $formAvaliacao, 'route'=> '', 'imprimir' => $btnImprimir, 'botao' => $botao)) ?>
+
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>

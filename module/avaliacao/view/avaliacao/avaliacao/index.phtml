@@ -1,0 +1,130 @@
+    <div class="container theme-showcase" role="main">
+      <div class="row">
+        <a style="padding: 10px;
+display: block;
+position: absolute;
+top: 20px;
+
+font-family: fonte;
+color: #FFF;
+background: #5780B1;
+font-size: 15px;
+border-radius: 5px;
+width: 215px;
+text-align: center;" href="<?= $this->url('avaliacaoArquivos', array('ano' => '0', 'mes' => '0', 'empresa' => '0', 'redirecionar' => '0', 'avaliacao' => '0', 'menu' => 'S')); ?>" >         
+Arquivos SIGA para download
+</a>
+      </div>  
+    </div>
+    <?php if(count($linkAvaliacoes) > 0): ?>
+      <?php 
+        $avalAbertas = 0;
+        $avaliacaoAberta = false;
+        foreach ($linkAvaliacoes as $avaliacao) {
+          if(!$this->abaRespondida($avaliacao)){
+            $avalAbertas++;
+            $avaliacaoAberta = $avaliacao;
+          }
+        } 
+      ?>
+      
+      <?php if($avalAbertas > 0): ?>
+        <?php if($avalAbertas == 1): ?>
+          <div class="container theme-showcase" role="main" style="margin-bottom:80px;padding:0px;">
+            <a href="<?= $this->url('avaliacaoAgendamento', array('mes' => $avaliacaoAberta['mes_referencia'], 'ano' => $avaliacaoAberta['ano_referencia'])); ?>" class="acesso-usuario db"> Existem avaliações em aberto para sua empresa</a>
+          </div>
+        <?php else: ?>
+          <div class="container theme-showcase" role="main" style="margin-bottom:80px;padding:0px;">
+            <a href="<?= $this->url('listaAvaliacoesAberto'); ?>" class="acesso-usuario db"> Existem avaliações em aberto para sua empresa</a>
+          </div>
+        <?php endif; ?>
+      <?php endif; ?>
+  <?php endif; ?>
+
+    <!-- filtro de avaliações -->
+    <div class="container theme-showcase" role="main" style="margin-bottom:0px;padding:0px;">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                  <div class="form-group">
+                    <form class="form-inline" role="form" method="POST" action="#">
+                        <div class="row">
+
+                          <div class='col-sm-4'>
+                            <div class="form-group">
+                              <label for="disabledTextInput"><?= $formPesquisa->get('mes')->getLabel(); ?></label>
+                              <?= $this->formElement($formPesquisa->get('mes')); ?>
+                            </div>
+                          </div>
+
+                          <div class='col-sm-4'>
+                            <div class="form-group">
+                              <label for="disabledTextInput"><?= $formPesquisa->get('ano')->getLabel(); ?></label>
+                              <?= $this->formElement($formPesquisa->get('ano')); ?>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row" style="margin-top:20px;">
+                          <button type="submit" name="limpar" class="btn btn-default" style="float: right;margin-right: 20px;">
+                          <img src="<?= $this->basePath('img/limpar.png'); ?>"> Limpar</button>
+                          <button type="submit" class="btn btn-info" name="pesquisar" style="float: right;margin-right: 10px;background: #036fb7 none repeat scroll 0 0;">
+                          <img src="<?= $this->basePath('img/pesquisar.png'); ?>" alt="Pesquisar"> Pesquisar</button>
+                        </div>
+                      </div>
+                  </form>
+                </div>
+              </div>
+          </div>
+    </div>
+
+
+
+    <!-- LISTAGEM DAS AVALIAÇÕES -->
+    <div class="container theme-showcase" role="main">
+      <div class="row">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Listagem de avaliações</h3>
+            </div>
+            <div class="panel-body">
+              <?php if($avaliacoes->count() > 0): ?>
+                <table class="table">
+                  <tr>
+                    <th style="text-align: center">Empresa</th>
+                    <th style="text-align: center">Mês</th>
+                    <th style="text-align: center">Ano</th>
+                    <th style="text-align: center">Visualizar</th>
+                </tr>
+                <?php foreach($avaliacoes as $avaliacao): ?>
+                <tr>
+                  <td style="text-align: center"><?= $avaliacao['nome_empresa']; ?></td>
+                  <td style="text-align: center"><?= $this->numeroMes($avaliacao['mes']); ?></td>
+                  <td style="text-align: center"><?= $avaliacao['ano']; ?></td>
+                  <td style="text-align: center;">
+                    <?php if($avaliacao['ano'] < 2017 || ($avaliacao['ano'] == 2017 && $avaliacao['mes'] <= 4)): ?>
+                      <img src="<?= $this->basePath('img/visualizar.png'); ?>" title="Editar" 
+                      onclick="location.href='<?= $this->url('historicoAgendamentoVisualizar', array('mes' => $avaliacao['mes'], 'ano' => $avaliacao['ano'])); ?>'" style="cursor: pointer;">
+                    <?php else: ?>
+                      <img src="<?= $this->basePath('img/visualizar.png'); ?>" title="Editar" 
+                      onclick="location.href='<?= $this->url('avaliacaoAgendamentoVisualizar', array('mes' => $avaliacao['mes'], 'ano' => $avaliacao['ano'])); ?>'" style="cursor: pointer;">
+                    
+                    <?php endif; ?>
+                  </td>
+                </tr>
+                <?php endforeach; ?>
+              </table>
+            <?php else: ?>
+              <div class="alert alert-info">Nenhuma avaliação encontrada!</div>
+            <?php endif; ?>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container theme-showcase" style="margin-top:0px;" role="main">
+        <div style="float:right;">
+          <?php echo $this->paginationControl($avaliacoes,
+                                        'Sliding',
+                                        'view/paginator', array('route' => 'avaliacoesEmpresa')); 
+          ?>
+        </div>
+      </div>

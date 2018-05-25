@@ -1,0 +1,67 @@
+ <h1>Avaliação diária - Data de referência: <?= $this->converterData($dataReferencia); ?></h1>
+
+<div style="display:none"><input name="unidade" id="unidade" value="Formulário de Auto Avaliação" type="text"></div>
+<a href="<?= $this->url('listarAvaliacoesDiarias'); ?>" class="acesso-usuario db"> Visualizar avaliações respondidas</a>
+<div class="formulario restrito">
+
+<div class="pager-form">
+		
+		<select name="avaliacoesAnteriores" id="avaliacoesAnteriores" onchange="redir(this.value);" class="link-arquivos active">
+			<?php foreach ($avaliacoesNaoRespondidas as $avaliacaoAberta) : ?>
+				<?php
+					$selected = '';
+					if($avaliacaoAberta->data_referencia == $dataReferencia){
+						$selected = 'selected';
+					}
+				?>
+				<option <?= $selected ?> value="<?= $avaliacaoAberta->data_referencia ?>"><?= $this->converterData($avaliacaoAberta->data_referencia); ?></option>
+			<?php endforeach; ?>
+		</select><label> <strong>* Avaliações em aberto</strong></label>
+</div> 
+
+<div style="max-width: 100%;" class="bx-wrapper"><div style="width: 100%; overflow: hidden; position: relative; height: auto;" class="bx-viewport"><ul style="width: 615%; position: relative; transition-duration: 0s; transform: translate3d(0px, 0px, 0px);" class="slider-form">
+<li style="float: left; list-style: outside none none; position: relative; width: 992px;"> 
+
+<div class="form-auditoria">
+
+<form class="form-inline" name="formAgendamento" id="formAvaliacaoDiaria" enctype="multipart/form-data" role="form" method="POST" action="#">
+
+<?php 
+  //CRIAR UMA PARTIAL, USAR FORM E CAMPOS
+  echo $this->partial('form/avaliacaodiaria', array('form'=> $formAvaliacao, 'campos'=> $campos));
+?>
+
+</div>
+<!--<p><input name="enviar" id="enviar" value="Enviar" type="submit"></p>-->
+<div class="bx-controls bx-has-controls-direction"><div class="bx-controls-direction"><input name="enviar" id="enviar" value="Continuar" class="bx-next" style="background: #036fb7 none repeat scroll 0 0;" type="submit"></div></div>
+</form>
+
+</li>
+</ul>
+</div>
+
+</div>
+</div>
+
+<style type="text/css">
+	.errovalidacao{
+		font-weight: bold;
+		color: red;
+	}
+</style>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+	$("#tme").mask("999:99:99");
+	$("#tma").mask("999:99:99");
+	
+	$("#atraso").mask("999.99%");
+
+	$('#avaliacoesAnteriores').css('color','white');
+
+  });
+
+  function redir(data){
+  	return location.href="/avaliacao/diaria/avaliacao/"+data;
+  }
+</script>

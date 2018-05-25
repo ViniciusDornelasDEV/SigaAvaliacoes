@@ -1,0 +1,70 @@
+ <h1>Formulário de Auto Avaliação</h1>
+<!--
+  Livedate: 08.05.2015 21:07:23 / Killdate: 05.05.2025 21:07:23 
+-->
+<div style="display:none"><input name="unidade" id="unidade" value="Formulário de Auto Avaliação" type="text"></div>
+<a href="<?= $this->url('avaliacoesaudicaonovo'); ?>" class="acesso-usuario db"> Para ver os resuldados dos meses anteriores clique aqui</a>
+<div class="formulario restrito">
+
+  <?php 
+    $arrayPeriodo = array('mes' => $mes, 'ano' => $ano, 'empresa' => $empresa);
+  ?>
+<div class="pager-form">
+  <a class="link-auditoria" data-slide-index="0" href="#">Agendamento</a>
+  <a class="link-comercial" data-slide-index="0" href="#">Comercial</a>
+  <a class="link-processo" data-slide-index="1" href="#">Processos e Produção</a>
+  <a class="link-qualidade" data-slide-index="2" href="#">Qualidade e Segurança</a>
+  <a class="link-seguranca" data-slide-index="3" href="#">Experiência e satisfação do paciente</a>
+  <a class="link-ata active" data-slide-index="3" href="#">Plano de ação</a>
+  <a class="link-arquivos" data-slide-index="4" href="<?= $this->url('avaliacaoArquivos', array('redirecionar' => 2, 'avaliacao' => $avaliacao->id, 'empresa' => $avaliacao['empresa'], 'ano' => '0', 'mes' => '0')); ?>">Arquivos SIGA para download</a>
+</div>
+
+<div style="max-width: 100%;" class="bx-wrapper"><div style="width: 100%; overflow: hidden; position: relative; height: auto;" class="bx-viewport"><ul style="width: 615%; position: relative; transition-duration: 0s; transform: translate3d(0px, 0px, 0px);" class="slider-form">
+<li style="float: left; list-style: outside none none; position: relative; width: 992px;"> 
+
+<div class="form-ata">
+
+
+<?php 
+  //Caso usuário não esteja autorizado a responder esta aba exibir link para a próxima
+  if(!$avaliacao):
+?>
+<label>
+  Não existe ata vinculada para este período!
+</label>
+<div class="bx-controls bx-has-controls-direction"><div class="bx-controls-direction">
+    <input name="enviar" id="enviar" value="Enviar" onclick="location.href='<?= $this->url('avaliacoesEmpresa'); ?>'" type="submit">
+</div></div>
+
+<?php else: ?>
+
+<form class="form-inline" name="formAgendamento" id="formAgendamento" enctype="multipart/form-data" role="form" method="POST" action="#">
+<h3>Vincular plano de ação</h3>
+<p class="pergunta-1">
+<?= $this->formElement($formAvaliacao->get('observacoes')); ?>
+<?php if(!empty($avaliacao->anexo)): ?>
+  <div style="float: right;">
+    <label>
+          <a href="<?= $this->url('download', array('id' => $avaliacao->id, 'campo' => 'anexo', 'aba' => 5)); ?>">
+          <img src="<?= $this->basePath('img/download.png'); ?>">Download anexo</a>
+    </label>
+  </div>
+    <?php endif; ?>
+
+</p>
+
+
+<div id="visualizar"></div>
+</div>
+<!--<p><input name="enviar" id="enviar" value="Enviar" type="submit"></p>-->
+</form>
+
+<?php endif; ?>
+</li>
+</ul>
+</div>
+
+</div>
+</div>
+
+

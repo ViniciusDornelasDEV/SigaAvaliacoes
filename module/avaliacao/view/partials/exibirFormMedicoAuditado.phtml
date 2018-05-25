@@ -1,0 +1,68 @@
+<?php if(!$this->params)$this->params = array();?>
+<?php $formAuditado->prepare(); ?>
+
+<?php if($this->route):?>
+    <?php $formAuditado->setAttribute('action', $this->url($this->route, $this->params)); ?>
+<?php else: ?>
+	<?php $formAuditado->setAttribute('action', "#"); ?>
+<?php endif;?>
+
+<?= $this->form()->openTag($formAuditado); ?>
+<?php $row = 0; ?>
+<?php foreach ($formAuditado->getElements() as $element): ?>
+		
+		<div class="row">
+	        <div class='col-sm-12'>
+                <div class="form-group" id="group-<?= $element->getName(); ?>">
+	        
+	        <label for="<?=$element->getName()?>"><?=$element->getLabel()?></label>	
+	        	
+	     		</div>
+            </div>
+        </div>
+        
+        <div class="row" style="margin-bottom: 20px;">
+	        <div class='col-sm-12'>
+             
+	        
+	        	<?= $this->formElement($element); ?>
+	        	<?= $this->formElementErrors($element, array('class' => 'alert alert-danger')); ?>
+	     	
+
+		        <div id="div_<?= $element->getName(); ?>" style="display:none;">
+		        	<?= $this->formElement($formAvaliacao->get($element->getName())); ?>
+		        </div>
+
+            </div>
+        </div>
+
+        <!-- SE TEM DIFERENÇA ENTRE ORIGINAL E AUDITADO MOSTRAR/ESCONDER -->
+        <div style="float: right;">
+		<?php if($avaliacaoAuditada && $avaliacao[$element->getName()] != $avaliacaoAuditada[$element->getName()]): ?>
+			<label style="display:none;" id="esconder_<?= $element->getName() ?>">
+			        <a style="font-size: 17px;" onclick="$('#div_<?= $element->getName(); ?>').hide();$('#esconder_<?= $element->getName(); ?>').hide();">
+			        	<img src="<?= $this->basePath('img/auditar.png'); ?>">Esconder
+			    	</a>
+			</label>
+
+			<label>
+			        <a style="font-size: 17px;" onclick="$('#div_<?= $element->getName(); ?>').show();$('#esconder_<?= $element->getName(); ?>').show();" >
+			        	<img src="<?= $this->basePath('img/ok.png'); ?>">Visualizar resp. original
+			    	</a>
+			</label>
+		<?php endif; ?>
+		</div>
+
+
+<?php endforeach; ?>
+</div>
+<div class="row" style="margin-top:20px;">
+	
+	<?php 
+		if($this->imprimir){
+			echo $imprimir;
+		}
+	?>
+
+</div>
+<?= $this->form()->closeTag($formAuditado); ?>

@@ -1,0 +1,45 @@
+    <!-- LISTAGEM DAS AVALIAÇÕES EM ABERTO -->
+    <div class="container theme-showcase" role="main">
+      <div class="row">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Listagem de avaliações</h3>
+            </div>
+            <div class="panel-body">
+
+              <?php if($avaliacoes->count() > 0): ?>
+                <table class="table">
+                  <tr>
+                    <th style="text-align: center">Data de abertura</th>
+                    <th style="text-align: center">Data de término</th>
+                    <th style="text-align: center">Mês referência</th>
+                    <th style="text-align: center">Ano referência</th>
+                    <th style="text-align: center">Responder avaliação</th>
+                </tr>
+                <?php foreach($avaliacoes as $avaliacao): ?>
+                <tr>
+                  <td style="text-align: center"><?= $this->converterData($avaliacao->inicio); ?></td>
+                  <td style="text-align: center"><?= $this->converterData($avaliacao->termino); ?></td>
+                  <td style="text-align: center"><?= $this->numeroMes($avaliacao->mes_referencia); ?></td>
+                  <td style="text-align: center"><?= $avaliacao->ano_referencia; ?></td>
+                  <td style="text-align: center;">
+                    <?php if($this->abaRespondida($avaliacao)): ?>
+                      Avaliação respondida
+                    <?php else: ?>
+                      <img src="<?= $this->basePath('img/editar.png'); ?>" title="Editar" 
+                      onclick="location.href='<?= $this->url('avaliacaoAgendamento', 
+                                                  array('mes' => $avaliacao->mes_referencia, 
+                                                        'ano' => $avaliacao->ano_referencia)); 
+                                              ?>'" style="cursor: pointer;">
+                    <?php endif; ?>
+                  </td>
+                </tr>
+                <?php endforeach; ?>
+              </table>
+            <?php else: ?>
+              <div class="alert alert-info">Nenhuma avaliação encontrada!</div>
+            <?php endif; ?>
+            </div>
+          </div>
+        </div>
+      </div>

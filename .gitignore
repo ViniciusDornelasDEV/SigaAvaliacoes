@@ -1,0 +1,5 @@
+module/application/language/cs_CZ.mo
+module/application/language/
+vendor/
+public/
+config/autoload/.gitignore

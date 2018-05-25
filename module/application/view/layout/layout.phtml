@@ -1,0 +1,95 @@
+<?php echo $this->doctype(); ?>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?php echo $this->headTitle($this->translate('SIGA - Auto avaliação'))->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?php echo $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <!-- Le styles -->
+        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+                        ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css')
+                        ->prependStylesheet($this->basePath() . '/css/bootstrap-theme.min.css')
+                        ->prependStylesheet($this->basePath() . '/css/estilo.css')
+                        ->prependStylesheet($this->basePath() . '/css/colorbox.css'); ?>
+
+        <!-- Scripts -->
+        <?php echo $this->headScript()
+            ->prependFile($this->basePath() . '/js/maskMoney.js')
+            ->prependFile($this->basePath() . '/js/bootbox.min.js')
+            ->prependFile($this->basePath() . '/js/bootstrap.min.js')
+            ->prependFile($this->basePath() . '/js/jquery.maskedinput.min.js')
+            ->prependFile($this->basePath() . '/js/jquery.colorbox.js')
+            ->prependFile($this->basePath() . '/js/funcoes.js')
+            ->prependFile($this->basePath() . '/js/jquery.min.js')
+        ; ?>
+
+    </head>
+  <body role="document">
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a href="<?= $this->url('home'); ?>"><img src="<?php echo $this->basePath('img/alliar.png') ?>" title="Logo" style="width: 130px; height: 54px;" alt="Logo"></a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <?php
+                //Pegar nome do modulo
+                $rota = explode("\\", $this->getHelperPluginManager()->getServiceLocator()->get('Application')->getMvcEvent()->getRouteMatch()->getParam('controller'));
+               $action = $this->getHelperPluginManager()->getServiceLocator()->get('Application')->getMvcEvent()->getRouteMatch()->getParam('action');
+            
+            $usuario = $this->getHelperPluginManager()->getServiceLocator()->get('session')->read();
+            ?>
+
+            <?php if($usuario['id_usuario_tipo'] == 4): ?>
+                <li class="<?php echo $rota[2] == 'Empresa' ? 'active' : '';  ?>">
+                    <a href="<?= $this->url('empresa') ?>">Empresas</a>
+                </li>
+            <?php endif; ?>
+
+            <?php if($usuario['id_usuario_tipo'] != 9): ?>
+                <li class="<?php echo $rota[2] == 'Avaliacao' ? 'active' : '';  ?>">
+                    <a href="<?= $this->url('listaAvaliacaoAdm', array('tipo' => 'C')); ?>">Visualizar avaliações</a>
+                </li>
+            <?php endif; ?>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Configurações<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <?php if($usuario['id_usuario_tipo'] == 4): ?>
+                    <li><a href="<?= $this->url('alterarSenha'); ?>">Alterar minha senha</a></li>
+                    <li><a href="<?= $this->url('usuario'); ?>">Gerenciar usuários</a></li>
+                    <li class="divider"></li>
+                    <li><a href="<?php echo $this->url('listaLiberacoes') ?>">Liberar avaliações</a></li>
+                    <li class="divider"></li>
+                <?php endif; ?>
+                <li><a href="<?php echo $this->url('logout') ?>">Sair</a></li>
+              </ul>
+            </li> 
+          
+          </ul>
+        </div>
+      </div>
+    </div>
+     <div class="container theme-showcase" role="main" style="margin-top:100px;padding:0px;">
+        <?= $this->flashMessenger()->render('error', array('alert', 'alert-danger')) ?>   
+
+        <?= $this->flashMessenger()->render('warning', array('alert',  'alert-warning')) ?>
+        <?= $this->flashMessenger()->render('success', array('alert',  'alert-success')) ?>
+    </div>
+
+    <?php echo $this->content; ?>
+
+    <hr>
+        <?php echo $this->inlineScript() ?>
+    </body>
+</html>

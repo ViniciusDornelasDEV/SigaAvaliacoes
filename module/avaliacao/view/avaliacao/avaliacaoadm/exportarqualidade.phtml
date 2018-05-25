@@ -1,0 +1,180 @@
+<?php echo $this->doctype(); ?>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+    </head>
+
+<?php
+  $nome_arquivo = "Qualidade";
+  header("Content-type: application/vnd.ms-excel");
+  header("Content-type: application/force-download");
+  header("Content-Disposition: attachment; filename=$nome_arquivo.xls");
+  header("Pragma: no-cache");
+?>
+<body>
+  <table border="1">
+    <tbody>
+        <!-- Confirmação -->
+        <tr>
+          <td colspan="2" style="font-weight: bold;font-size:35px;">Atendimento e Satisfação do cliente</td>
+        </tr>
+        <tr>
+          <td colspan="2">Identificação do paciente/ acompanhantes/ visitantes </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->identificapaciente); ?></td>
+          <td><?= $avaliacao->observacoes_identificapaciente ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Processo de armazenamento das informações dos pacientes de forma segura (Backup) </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->backup); ?></td>
+          <td><?= $avaliacao->observacoes_backup ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Segurança da Marcação do paciente diabético, renal e preparo do paciente alérgico </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->seguranca); ?></td>
+          <td><?= $avaliacao->observacoes_seguranca ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Realização de atendimento conforme prioridade </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->prioridade); ?></td>
+          <td><?= $avaliacao->observacoes_prioridade ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Pesquisa de satisfação nos tablets </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->tablets); ?></td>
+          <td><?= $avaliacao->observacoes_tablets ?></td>
+        </tr>
+
+
+        <!-- Gestão -->
+        <tr>
+          <td colspan="2" style="font-weight: bold;font-size:35px;">Gestão de Pessoas</td>
+        </tr>
+        <tr>
+          <td colspan="2">Controle de vacinação, exames periódicos de funcionário, dosimetria e distribuição de EPIs </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->vacinacao); ?></td>
+          <td><?= $avaliacao->observacoes_vacinacao ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Ergonomia Conforme Norma Regulamentadora 17 – Portaria 3.214/78, regida pela Lei 6.514/77 </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->ergonomia); ?></td>
+          <td><?= $avaliacao->observacoes_ergonomia ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Mapas de riscos disponíveis e PPRA e PCMSCO atualizados </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->mapas); ?></td>
+          <td><?= $avaliacao->observacoes_mapas ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Dispõe de canais de Comunicação com o colaborador </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->colaborador); ?></td>
+          <td><?= $avaliacao->observacoes_colaborador ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Descrição de cargos  </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->cargos); ?></td>
+          <td><?= $avaliacao->observacoes_cargos ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Avaliação de desempenho </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->desempenho); ?></td>
+          <td><?= $avaliacao->observacoes_desempenho ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Pesquisa de clima com análise e ações </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->clima); ?></td>
+          <td><?= $avaliacao->observacoes_clima ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Fluxo de Acidente de trabalho </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->acidente); ?></td>
+          <td><?= $avaliacao->observacoes_acidente ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Realização de treinamentos obrigatórios </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->treinamentos); ?></td>
+          <td><?= $avaliacao->observacoes_treinamentos ?></td>
+        </tr>
+
+
+        <!-- Gestão -->
+        <tr>
+          <td colspan="2" style="font-weight: bold;font-size:35px;">Documentação Legal</td>
+        </tr>
+        <tr>
+          <td colspan="2">Controle da documentação legal </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->documentacao); ?></td>
+          <td><?= $avaliacao->observacoes_documentacao ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Funcionamento das comissões obrigatórias (cipa, ciead, perfuro cortante, prontuário, ética médica ) </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->comissoes); ?></td>
+          <td><?= $avaliacao->observacoes_comissoes ?></td>
+        </tr>
+
+        <!-- Rastreamento -->
+        <tr>
+          <td colspan="2" style="font-weight: bold;font-size:35px;">Gestão Ambiental</td>
+        </tr>
+        <tr>
+          <td colspan="2">PGRSS aprovado e aplicado </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->pgrss); ?></td>
+          <td><?= $avaliacao->observacoes_pgrss ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Promover ações para redução de recursos naturais renováveis e não renováveis </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->recursos); ?></td>
+          <td><?= $avaliacao->observacoes_recursos ?></td>
+        </tr>
+    </tbody>
+  </table>
+</body>

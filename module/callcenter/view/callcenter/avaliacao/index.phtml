@@ -1,0 +1,153 @@
+<div class="container theme-showcase" role="main" style="padding:0px;">
+  <a href="<?= $this->url('liberarAvaliacoesCallCenter'); ?>" class="acesso-usuario db"> Liberar avaliações</a>
+</div>
+
+<?php if(empty($dataReferencia)): ?>
+    <div class="alert alert-warning">
+      Nenhum período de referência encontrado!
+    </div>
+<?php else: ?>
+ <div class="container theme-showcase" role="main" style="margin-bottom:10px;padding:0px;">
+    <div class="panel panel-default">
+      <div class="panel-body">
+          <div class="form-group">
+            <form class="form-inline" role="form" method="POST" action="#">
+                <div class="row">
+                  <div class='col-sm-4'>
+                    <div class="form-group">
+                       <label for="disabledTextInput"><?=$formPesquisa->get('respondidas')->getLabel()?></label>
+                       <?= $this->formElement($formPesquisa->get('respondidas')); ?>
+                    </div>
+                  </div>
+                  
+                  <div class='col-sm-4'>
+                    <div class="form-group">
+                       <label for="disabledTextInput"><?=$formPesquisa->get('data_referencia')->getLabel()?></label>
+                       <?= $this->formElement($formPesquisa->get('data_referencia')); ?>
+                    </div>
+                  </div>
+
+                  <div class='col-sm-4'>
+                    <div class="form-group">
+                       <label for="disabledTextInput"><?=$formPesquisa->get('empresa')->getLabel()?></label>
+                       <?= $this->formElement($formPesquisa->get('empresa')); ?>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row" style="margin-top:20px;">
+                  <button type="submit" class="btn btn-success" style="float: right;margin-right: 10px;">
+                  <img src="<?= $this->basePath('img/pesquisar.png'); ?>" alt="Pesquisar"> Pesquisar</button>
+                  <button  type="submit" name="limpar" class="btn btn-default" style="float: right;margin-right: 20px;">
+                  <img src="<?= $this->basePath('img/limpar.png'); ?>"> Limpar</button>
+                </div>
+              </form>
+              </div>
+        </div>
+      </div>
+</div>
+
+    <div class="container theme-showcase" role="main" style="margin-bottom:10px;padding:0px;">
+       <button type="button" class="btn btn-danger" onclick="location.href='<?= $this->url('grafico'); ?>'" style="float: right;margin-left: 5px;">
+      <img src="<?php echo $this->basePath('img/grafico.png') ?>" alt="Novo">
+      Relatórios</button>
+
+      <button type="button" class="btn btn-warning" onclick="location.href='<?= $this->url('graficoPersonalizado'); ?>'" style="float: right;margin-left: 5px;">
+      <img src="<?php echo $this->basePath('img/graficoPersonalizado.png') ?>" alt="Novo">
+      Gráfico personalizado</button>
+
+      <button type="button" class="btn btn-info" onclick="location.href='<?= $this->url('indexMetasAgendamento'); ?>'" style="float: right;">
+      <img src="<?php echo $this->basePath('img/meta.png') ?>" alt="Metas">
+      Metas de agendamento</button>
+    </div>
+
+    <!-- LISTAGEM DOS CHAMADOS -->
+    <div class="container theme-showcase" role="main">
+      <div class="row">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Listagem de avaliações</h3>
+            </div>
+            <div class="panel-body">
+              <?php if($avaliacoes->count() > 0): ?>
+                <table class="table">
+                  <tr>
+                    <th style="text-align: center">Status</th>
+                    <th style="text-align: center">Nome da empresa</th>
+                    <th style="text-align: center">Administrador</th>
+                    <th style="text-align: center">Gestor</th>
+                    <th style="text-align: center">Data de referência</th>
+                    <th style="text-align: center">Data/hora de resposta</th>
+                    <th style="text-align: center">Ações</th>
+                </tr>
+                <?php foreach($avaliacoes as $avaliacao): ?>
+                <tr>
+                  <?php if($respondida == 'S'): ?>
+                    <td style="text-align: center">
+                      <img src="<?= $this->basePath('img/respondida.png'); ?>" title="Respondida" 
+                       style="cursor: pointer;">
+                    </td>
+                    <td style="text-align: center"><?= $avaliacao['nome_empresa']; ?></td>
+
+                    <?php if(empty($avaliacao['nome_gestor']) && empty($avaliacao['nome_operador'])): ?>
+                      <td style="text-align: center"><?= $avaliacao['nome_usuario']; ?></td>
+                      <td style="text-align: center">-</td>
+                    <?php else: ?>
+                      <td style="text-align: center"><?= $avaliacao['nome_gestor']; ?></td>
+                      <td style="text-align: center"><?= $avaliacao['nome_operador']; ?></td>
+                    <?php endif; ?>
+                    <td style="text-align: center"><?= $this->converterData($avaliacao['data_referencia']); ?></td>
+                    <td style="text-align: center"><?= $this->caracterVazio($this->converterData($avaliacao['data_hora_resposta'])); ?></td>
+                    <td style="text-align: center;">
+                      <img src="<?= $this->basePath('img/grafico.png'); ?>" title="Gráfico" 
+                      onclick="location.href='<?= $this->url('visualizarGrafico', array('empresa' => $avaliacao['id_empresa'], 'data' => $avaliacao['data_referencia'])); ?>'" style="cursor: pointer;">
+
+                      <span style="margin-right:4px;"></span>  
+
+                      <img src="<?= $this->basePath('img/editar.png'); ?>" title="Editar" 
+                      onclick="location.href='<?= $this->url('alterarAvaliacaoAdm', array('idAvaliacao' => $avaliacao['id'])); ?>'" style="cursor: pointer;">
+                      
+                      <span style="margin-right:4px;"></span>  
+
+                     <img src="<?= $this->basePath('img/visualizar.png'); ?>" title="Visualizar" 
+                    onclick="location.href='<?= $this->url('visualizarAvaliacaoCallCenter', array('idAvaliacao' => $avaliacao['id'])); ?>'" style="cursor: pointer;">
+                    </td>
+                  <?php else: ?>
+                    <td style="text-align: center">
+                      <img src="<?= $this->basePath('img/emaberto.png'); ?>" title="Em aberto" 
+                       style="cursor: pointer;">
+                    </td>
+                    <td style="text-align: center"><?= $avaliacao['nome_empresa']; ?></td>
+                    <td style="text-align: center"><?= $avaliacao['nome_gestor']; ?></td>
+                    <td style="text-align: center"><?= $avaliacao['nome_operador']; ?></td>
+                    <td style="text-align: center"><?= $this->converterData($dataReferencia); ?></td>
+                    <td style="text-align: center"> - </td>
+                    <td style="text-align: center;"><img src="<?= $this->basePath('img/novo.png'); ?>" title="Nova avaliação" 
+                    onclick="location.href='<?= $this->url('novaAvaliacaoAdm', array('data' => $dataReferencia, 'empresa' => $avaliacao['empresa'])); ?>'" style="cursor: pointer;"></td>
+                  <?php endif; ?>
+                </tr>
+                <?php endforeach; ?>
+              </table>
+            <?php else: ?>
+              <div class="alert alert-info">Nenhuma avaliação encontrada!</div>
+            <?php endif; ?>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container theme-showcase" style="margin-top:0px;" role="main">
+        <div style="float:right;">
+          <?php echo $this->paginationControl($avaliacoes,
+                                        'Sliding',
+                                        'view/paginator', array('route' => 'administradorAvaliacoesCallCenter')); 
+          ?>
+        </div>
+      </div>
+      <script type="text/javascript">
+        $(document).ready(function() {
+          formListarCallcenter();
+        });
+      </script>
+
+<?php endif; ?>

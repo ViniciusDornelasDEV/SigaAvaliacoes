@@ -1,0 +1,127 @@
+    <!-- filtro de avaliações -->
+    <div class="container theme-showcase" role="main" style="margin-bottom:10px;padding:0px;">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                  <div class="form-group">
+                    <form class="form-inline" role="form" method="POST" action="#">
+                        <div class="row">
+                          <div class='col-sm-4'>
+                            <div class="form-group">
+                              <label for="disabledTextInput"><?= $formPesquisa->get('respondidas')->getLabel(); ?></label>
+                              <?= $this->formElement($formPesquisa->get('respondidas')); ?>
+                            </div>
+                          </div>
+
+                          <div class='col-sm-4'>
+                            <div class="form-group">
+                              <label for="disabledTextInput"><?= $formPesquisa->get('empresa')->getLabel(); ?></label>
+                              <?= $this->formElement($formPesquisa->get('empresa')); ?>
+                            </div>
+                          </div>
+
+                          <div class='col-sm-4'>
+                            <div class="form-group">
+                              <label for="disabledTextInput"><?= $formPesquisa->get('data_referencia')->getLabel(); ?></label>
+                              <?= $this->formElement($formPesquisa->get('data_referencia')); ?>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row" style="margin-top:20px;">
+                          <button type="submit" name="limpar" class="btn btn-default" style="float: right;margin-right: 20px;">
+                          <img src="<?= $this->basePath('img/limpar.png'); ?>"> Limpar</button>
+                          <button type="submit" class="btn btn-info" name="pesquisar" style="float: right;margin-right: 10px;background: #036fb7 none repeat scroll 0 0;">
+                          <img src="<?= $this->basePath('img/pesquisar.png'); ?>" alt="Pesquisar"> Pesquisar</button>
+                        </div>
+                      </div>
+                  </form>
+                </div>
+              </div>
+          </div>
+    </div>
+
+    <div class="container theme-showcase" role="main" style="margin-bottom:10px;padding:0px;">
+        <button type="button" class="btn btn-info" onclick="location.href='<?= $this->url('listaAvaliacoesDiariasAdm'); ?>'" style="float: right;margin-left: 10px;">
+        <img src="<?php echo $this->basePath('img/diaria.png') ?>" alt="Novo">
+        Diária</button>
+
+        <button type="button" class="btn btn-success" onclick="location.href='<?= $this->url('listaAvaliacoesCallCenterAdm'); ?>'" style="float: right;margin-left: 10px;">
+        <img src="<?php echo $this->basePath('img/telefone.png') ?>" alt="Novo">
+        Call center</button>
+
+        <button type="button" class="btn btn-warning" onclick="location.href='<?= $this->url('listaAvaliacaoAdm', array('tipo' => 'M')); ?>'" style="float: right;margin-left: 10px;">
+        <img src="<?php echo $this->basePath('img/medico.png') ?>" alt="Novo">
+        Médicos</button>
+
+        <button type="button" class="btn btn-danger" onclick="location.href='<?= $this->url('listaAvaliacaoAdm', array('tipo' => 'C')); ?>'" style="float: right;">
+        <img src="<?php echo $this->basePath('img/clinica.png') ?>" alt="Novo">
+        Clínicas</button>
+    </div>
+    <!-- LISTAGEM DAS AVALIAÇÕES -->
+    <div class="container theme-showcase" role="main">
+      <div class="row">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Listagem de avaliações</h3>
+            </div>
+            <div class="panel-body">
+              <?php if($avaliacoes->count() > 0): ?>
+              <?php 
+                if($respondida == 'S'){
+                  $imagem = '<img src="'.$this->basePath('img/respondida.png').'" title="Respondida" 
+                       style="cursor: pointer;">';
+                }else{
+                  $imagem = '<img src="'.$this->basePath('img/emaberto.png').'" title="Respondida" 
+                       style="cursor: pointer;">';
+                }
+                $dataReferenciaFormatada = $this->caracterVazio($dataReferencia);
+              ?>
+                <table class="table">
+                  <tr>
+                    <th style="text-align: center">Status</th>
+                    <th style="text-align: center">Nome da empresa</th>
+                    <th style="text-align: center">Nome do operador</th>
+                    <th style="text-align: center">Data de referência</th>
+                    <th style="text-align: center">Data/hora de resposta</th>
+                    <th style="text-align: center">Ações</th>
+                </tr>
+                <?php foreach($avaliacoes as $avaliacao): ?>
+                <tr>
+                  <td style="text-align: center"><?= $imagem; ?></td>
+                  <td style="text-align: center"><?= $avaliacao['nome_empresa']; ?></td>
+                  <td style="text-align: center"><?= $avaliacao['nome_operador']; ?></td>
+                  <td style="text-align: center"><?= $dataReferenciaFormatada; ?></td>
+                  <td style="text-align: center">
+                    <?= isset($avaliacao['data_hora_resposta']) ? $this->converterData($avaliacao['data_hora_resposta']) : '-';   ?>
+                  </td>
+                  <td style="text-align: center;">
+                    <?php if($respondida == 'S'): ?>
+                      <img src="<?= $this->basePath('img/grafico.png'); ?>" title="Gráfico" 
+                      onclick="location.href='<?= $this->url('visualizarGrafico', array('empresa' => $avaliacao['id_empresa'], 'data' => $dataReferencia)); ?>'" style="cursor: pointer;">
+
+                      <span style="margin-right:4px;"></span>  
+
+                      <img src="<?= $this->basePath('img/visualizar.png'); ?>" title="Visualizar" 
+                      onclick="location.href='<?= $this->url('visualizarAvaliacaoDiaria', array('idAvaliacao' => $avaliacao['id'])); ?>'" style="cursor: pointer;">
+                    <?php else: ?>
+                      -
+                  <?php endif; ?>
+                  </td>
+                </tr>
+                <?php endforeach; ?>
+              </table>
+            <?php else: ?>
+              <div class="alert alert-info">Nenhuma avaliação encontrada!</div>
+            <?php endif; ?>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container theme-showcase" style="margin-top:0px;" role="main">
+        <div style="float:right;">
+          <?php echo $this->paginationControl($avaliacoes,
+                                        'Sliding',
+                                        'view/paginator', array('route' => 'listaAvaliacoesDiariasAdm')); 
+          ?>
+        </div>
+      </div>

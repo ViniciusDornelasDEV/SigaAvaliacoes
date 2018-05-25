@@ -1,0 +1,46 @@
+  <?php 
+    if(isset($parametros)){
+      $parametros['page'] = $this->previous;
+    }else{
+      $parametros = array('page' => $this->previous);
+    }
+  ?>
+<?php if ($this->pageCount): ?>
+<ul class="pagination">
+  <?php if($this->previous): ?>
+  <li>
+    <a href="<?php echo $this->url($this->route, $parametros); ?>">
+      &laquo;
+    </a>
+  </li>
+<?php endif; ?>
+<!-- Numbered page links -->
+<?php foreach ($this->pagesInRange as $page): ?>
+  <?php if ($page != $this->current): ?>
+    <li>
+      <?php
+        $parametros['page'] = $page;
+      ?>
+      <a href="<?php echo $this->url($this->route, $parametros); ?>">
+          <?php echo $page; ?>
+      </a>
+    </li>
+  <?php else: ?>
+    <li class="active">
+      <a href="">
+        <?php echo $page; ?>
+      </a>
+    </li>
+  <?php endif; ?>
+<?php endforeach; ?>
+  <?php 
+    $parametros['page'] = $this->next;
+    if($this->next):
+  ?>
+  <li>
+    <a href="<?php echo $this->url($this->route, $parametros); ?>">
+      &raquo;
+    </a>
+  </li>
+<?php endif; ?>
+<?php endif; ?>

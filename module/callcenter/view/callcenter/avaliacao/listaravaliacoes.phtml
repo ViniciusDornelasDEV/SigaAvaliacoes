@@ -1,0 +1,50 @@
+      <?php if($avaliacaoAberta): ?>
+      <div class="container theme-showcase" role="main" style="padding:0px;">
+        <a href="<?= $this->url('avaliacaoCallCenter'); ?>" class="acesso-usuario db"> Existem avaliações em aberto</a>
+      </div>
+      <?php endif; ?>
+    <!-- LISTAGEM DOS CHAMADOS -->
+    <div class="container theme-showcase" role="main">
+      <div class="row">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Lista de avaliações respondidas</h3>
+            </div>
+            <div class="panel-body">
+              <?php if($avaliacoes->count() > 0): ?>
+                <table class="table">
+                  <tr>
+                    <th style="text-align: center">Empresa</th>
+                    <th style="text-align: center">Usuário</th>
+                    <th style="text-align: center">Data de referência</th>
+                    <th style="text-align: center">Visualizar</th>
+                </tr>
+                <?php foreach($avaliacoes as $avaliacao): ?>
+                <tr>
+                  <td style="text-align: center"><?= $avaliacao['nome_empresa']; ?></td>
+                  <td style="text-align: center"><?= $avaliacao['nome_usuario']; ?></td>
+                  <td style="text-align: center"><?= $this->converterData($avaliacao['data_referencia']); ?></td>
+                  <td style="text-align: center;">
+                    <img src="<?= $this->basePath('img/visualizar.png'); ?>" title="Visualizar" 
+                    onclick="location.href='<?= $this->url('visualizarAvaliacaoCallCenter', array('idAvaliacao' => $avaliacao['id'])); ?>'" style="cursor: pointer;">
+                    
+                  </td>
+                </tr>
+                <?php endforeach; ?>
+              </table>
+            <?php else: ?>
+              <div class="alert alert-info">Nenhuma avaliação encontrada!</div>
+            <?php endif; ?>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container theme-showcase" style="margin-top:0px;" role="main">
+        <div style="float:right;">
+          <?php echo $this->paginationControl($avaliacoes,
+                                        'Sliding',
+                                        'view/paginator', array('route' => 'listarAvaliacoesCallCenter')); 
+          ?>
+        </div>
+      </div>

@@ -1,0 +1,53 @@
+<div class="container theme-showcase" role="main" style="margin-bottom:10px;padding:0px;">
+  <button type="button" class="btn btn-warning" disabled="disabled" style="float: right;margin-left: 5px;">
+  <img src="<?php echo $this->basePath('img/editar.png') ?>" alt="Editar">
+  Alterar períodos</button>
+
+  <button type="button" class="btn btn-default" onclick="location.href='<?= $this->url('liberarAvaliacoesCallCenter'); ?>'" style="float: right;margin-left: 5px;">
+  <img src="<?php echo $this->basePath('img/novo.png') ?>" alt="Novo">
+  Novos períodos</button>
+
+
+  <ol class="breadcrumb" style="margin-bottom: 0px;">
+	  <li><a href="<?= $this->url('administradorAvaliacoesCallCenter'); ?>">Lista de avaliações</a></li>
+	  <li class="active">Alterar avaliação</li>
+	</ol>
+</div>
+
+    <div class="container theme-showcase" role="main">
+      <div class="row">
+          <div class="panel panel-default">
+          <div class="panel-heading">
+              <h3 class="panel-title">Alterar períodos de avaliação</h3>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                  <?php echo $this->partial('form/generic', array('form'=> $formAlterarAvaliacao, 'route'=> '')) ?>
+            </div>
+          </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="container theme-showcase" role="main" style="margin-bottom:10px;padding:0px;">
+
+    </div>
+
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $("#referencia_inicio").mask("99/99/9999");
+        $("#referencia_termino").mask("99/99/9999");
+        $("#termino").mask("99/99/9999");
+      });
+
+      $('#formAlterar').submit(function(e) {
+        var currentForm = this;
+        e.preventDefault();
+        bootbox.confirm("Tem certeza que deseja alterar as datas de avaliação?", function(result) {
+            if (result) {
+                currentForm.submit();
+            }
+        });
+      });
+    </script>

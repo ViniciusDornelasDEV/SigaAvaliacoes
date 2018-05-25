@@ -1,0 +1,89 @@
+ <div class="container theme-showcase" role="main" style="margin-bottom:10px;padding:0px;">
+    <div class="panel panel-default">
+      <div class="panel-body">
+          <div class="form-group">
+            <form class="form-inline" role="form" method="POST" action="#">
+                <div class="row">
+                  <div class='col-sm-4'>
+                    <div class="form-group">
+                       <label for="disabledTextInput"><?=$formPesquisa->get('respondida')->getLabel()?></label>
+                       <?= $this->formElement($formPesquisa->get('respondida')); ?>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="row" style="margin-top:20px;">
+                  <button type="submit" class="btn btn-success" style="float: right;margin-right: 10px;">
+                  <img src="<?= $this->basePath('img/pesquisar.png'); ?>" alt="Pesquisar"> Pesquisar</button>
+                  <button  type="submit" name="limpar" class="btn btn-default" style="float: right;margin-right: 20px;">
+                  <img src="<?= $this->basePath('img/limpar.png'); ?>"> Limpar</button>
+                </div>
+              </form>
+              </div>
+        </div>
+      </div>
+</div>
+
+<div class="container theme-showcase" role="main" style="margin-bottom:10px;padding:0px;">       
+  <button type="button" class="btn btn-success" onclick="location.href='<?= $this->url('indexFinalizadas'); ?>'" style="float: right;margin-left: 10px;">
+  Avaliações finalizadas</button>
+
+  <button type="button" class="btn btn-danger disabled" onclick="location.href='<?= $this->url('medicoIndex'); ?>'" style="float: right;">
+  Avaliações em aberto</button>
+
+</div>
+
+
+    <!-- LISTAGEM DOS CHAMADOS -->
+    <div class="container theme-showcase" role="main">
+      <div class="row">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title"><img src="<?= $this->basePath('img/usuario.png'); ?>"> <?= $diretorMedico['nome'] ?> - avaliações em aberto</h3>
+            </div>
+            <div class="panel-body">
+              <?php if(count($avaliacoes) > 0): ?>
+                <table class="table">
+                  <tr>
+                    <th style="text-align: center">Status</th>
+                    <th style="text-align: center">Nome da empresa</th>
+                    <th style="text-align: center">Médico</th>
+                    <th style="text-align: center">Mês/ano referência</th>
+                    <th style="text-align: center">Data de fechamento</th>
+                    <th style="text-align: center">Ações</th>
+                </tr>
+                <?php foreach($avaliacoes as $avaliacao): ?>
+                <?php 
+                  if(is_null($avaliacao['respondida'])){
+                    //Não respondido (vermelho)
+                    $icone = '<img src="'.$this->basePath('img/emaberto.png').'"> Não respondido';
+                  }else{
+                    if($avaliacao['respondida'] == 'N'){
+                      //Qualitativa respondida (amarelo)
+                      $icone = '<img src="'.$this->basePath('img/respondendo.png').'"> Qualitativa respondida';
+                    }else{
+                      //Respondida (verde)
+                      $icone = '<img src="'.$this->basePath('img/respondida.png').'"> Respondida';
+                    }
+                  }
+                ?>
+                <tr>
+                  <td style="text-align: center"><?= $icone; ?></td>
+                  <td style="text-align: center"><?= $avaliacao['nome_empresa']; ?></td>
+                  <td style="text-align: center"><?= $avaliacao['nome_medico']; ?></td>
+                  <td style="text-align: center"><?= $this->numeroMes($avaliacao['mes_referencia']).'/'.$avaliacao['ano_referencia']; ?></td>
+                  <td style="text-align: center"><?= $this->converterData($avaliacao['data_fechamento']); ?></td>
+                  <td style="text-align: center;">
+                    <img src="<?= $this->basePath('img/avaliacaoMedico.png'); ?>" title="Responder avaliação" 
+                    onclick="location.href='<?= $this->url('medicoAvaliacaoQualitativa', array('medico' => $avaliacao['id_medico'], 'periodo' => $avaliacao['id_periodo'])); ?>'" style="cursor: pointer;">
+                  </td>
+                </tr>
+                <?php endforeach; ?>
+              </table>
+            <?php else: ?>
+              <div class="alert alert-info">Nenhuma avaliação encontrada!</div>
+            <?php endif; ?>
+            </div>
+          </div>
+        </div>
+      </div>

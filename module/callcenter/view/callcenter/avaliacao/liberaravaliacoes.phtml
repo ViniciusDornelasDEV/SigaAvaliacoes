@@ -1,0 +1,89 @@
+ <div class="container theme-showcase" role="main" style="margin-bottom:10px;padding:0px;">
+  <button type="button" class="btn btn-warning" onclick="location.href='<?= $this->url('alterarAvaliacoesCallCenter'); ?>'" style="float: right;margin-left: 5px;">
+  <img src="<?php echo $this->basePath('img/editar.png') ?>" alt="Editar">
+  Alterar períodos</button>
+
+  <button type="button" class="btn btn-default" disabled="disabled" style="float: right;margin-left: 5px;">
+  <img src="<?php echo $this->basePath('img/novo.png') ?>" alt="Novo">
+  Novos períodos</button>
+  
+	<ol class="breadcrumb" style="margin-bottom: 0px;">
+	  <li><a href="<?= $this->url('administradorAvaliacoesCallCenter'); ?>">Lista de avaliações</a></li>
+	  <li class="active">Liberar avaliação</li>
+	</ol>
+</div>
+
+    <div class="container theme-showcase" role="main">
+      <div class="row">
+          <div class="panel panel-default">
+          <div class="panel-heading">
+              <h3 class="panel-title">Inserir novo período de avaliação</h3>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                  <?php echo $this->partial('form/generic', array('form'=> $formAvaliacao, 'route'=> '')) ?>
+            </div>
+          </div>
+      </div>
+    </div>
+    </div>
+
+ 
+    <!-- AVALIAÇÕES LIBERADAS -->
+    <?php if(!$avaliacoesLiberadas || $avaliacoesLiberadas->count() == 0): ?>
+    <div class="container theme-showcase" role="main">
+      <div class="alert alert-info">Nenhum período de avaliação encontrado!</div>
+    </div>
+    <?php else: ?>
+
+     <div class="container theme-showcase" role="main">
+      <div class="row">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Períodos de avaliação</h3>
+            </div>
+            <div class="panel-body">
+              <table class="table">
+                <tr>
+                  <th style="text-align: center">Data referência</th>
+                  <th style="text-align: center">Data início</th>
+                  <th style="text-align: center">Data fim</th>
+                  <th style="text-align: center">Ações</th>
+              </tr>
+
+              <?php 
+              foreach ($avaliacoesLiberadas as $avaliacao): 
+              ?>
+              <tr>
+                <td style="text-align: center"><?= $this->converterData($avaliacao['data_referencia']); ?></td>
+                <td style="text-align: center"><?= $this->converterData($avaliacao['inicio']); ?></td>
+                <td style="text-align: center"><?= $this->converterData($avaliacao['termino']); ?></td>
+                <td style="text-align: center">                  
+                  <img src="<?php echo $this->basePath('img/deletar.png') ?>" style="cursor: pointer;" onclick="alerta('<?= $this->url('deletarLiberacaoCallCenter', array('id' => $avaliacao['id'])); ?>', 'deletar');" title="Deletar">
+                </td>
+                
+              
+              </tr>
+            <?php endforeach; ?>
+            </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    <?php endif; ?>
+
+    <div class="container theme-showcase" style="margin-top:0px;" role="main">
+      <div style="float:right;">
+        <?php echo $this->paginationControl($avaliacoesLiberadas,
+                                      'Sliding',
+                                      'view/paginator', array('route' => 'liberarAvaliacoesCallCenter')); 
+        ?>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+	    $(document).ready(function() {
+			  formLiberarAvaliacoes();
+        $("#data_referencia").mask("99/99/9999");
+		  });
+    </script>

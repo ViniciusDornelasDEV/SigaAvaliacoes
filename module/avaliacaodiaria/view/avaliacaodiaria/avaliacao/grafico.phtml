@@ -1,0 +1,36 @@
+
+ <div class="container theme-showcase" role="main" style="margin-bottom:10px;padding:0px;">
+  <ol class="breadcrumb" style="margin-bottom: 0px;">
+    <li><a href="<?= $this->url('administradorAvaliacoesDiarias'); ?>">Lista de avaliações</a></li>
+    <li class="active">Gráfico</li>
+  </ol>
+</div>
+
+
+    <div class="container theme-showcase" role="main">
+      <div class="row">
+          <div class="panel panel-default">
+          <div class="panel-heading">
+              <h3 class="panel-title">Inserir parâmetros para gráfico</h3>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                  <?php 
+                    $botao = '<button type="submit" class="btn btn-success" style="float: right;margin-right: 10px;">
+                                <img src="'.$this->basePath('img/pesquisar.png').'" title="Salvar" alt="Salvar">
+                                Pesquisar
+                              </button>';
+                  ?>
+                  <?php echo $this->partial('form/generic', array('form'=> $formGrafico, 'route'=> 'visualizarGraficoAvaliacoesDiarias', 'botao' => $botao)) ?>
+            </div>
+          </div>
+      </div>
+    </div>
+    </div>
+
+    <script type="text/javascript">
+	    $(document).ready(function() {
+			  $("#inicio").mask("99/99/9999");
+        $("#fim").mask("99/99/9999");
+		  });
+    </script>

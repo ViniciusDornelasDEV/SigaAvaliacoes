@@ -1,0 +1,72 @@
+
+
+
+
+
+
+
+
+
+
+ <h1>Formulário de Auto Avaliação</h1>
+
+
+
+
+
+
+<!--
+  Livedate: 08.05.2015 21:07:23 / Killdate: 05.05.2025 21:07:23 
+-->
+<div style="display:none"><input name="unidade" id="unidade" value="Formulário de Auto Avaliação" type="text"></div>
+<a href="<?= $this->url('avaliacoesaudicaonovo'); ?>" class="acesso-usuario db"> Para ver os resuldados dos meses anteriores clique aqui</a>
+<div class="formulario restrito">
+
+<div class="pager-form">
+  <a class="link-auditoria" data-slide-index="0" href="#">Agendamento</a>
+  <a class="link-comercial" data-slide-index="0" href="#">Comercial</a>
+  <a class="link-processo" data-slide-index="1" href="#">Processos e Produção</a>
+  <a class="link-qualidade active" data-slide-index="2" href="#">Qualidade e Segurança</a>
+  <a class="link-seguranca" data-slide-index="3" href="#">Experiência e satisfação do paciente</a>
+  <a class="link-ata" data-slide-index="3" href="#">Plano de ação</a>
+  <a class="link-arquivos" data-slide-index="4" href="<?= $this->url('avaliacaoArquivos', array('redirecionar' => 2, 'avaliacao' => $avaliacao->id, 'empresa' => $avaliacao['empresa'], 'ano' => '0', 'mes' => '0')); ?>">Arquivos SIGA para download</a>
+</div>
+
+<div style="max-width: 100%;" class="bx-wrapper"><div style="width: 100%; overflow: hidden; position: relative; height: auto;" class="bx-viewport"><ul style="width: 615%; position: relative; transition-duration: 0s; transform: translate3d(0px, 0px, 0px);" class="slider-form">
+<li style="float: left; list-style: outside none none; position: relative; width: 992px;"> 
+<div class="form-qualidade">
+
+<?php if($audicaoRealizada): ?>
+<label>
+    Este formulário já foi auditado!
+</label>
+<div class="bx-controls bx-has-controls-direction">
+    <div class="bx-controls-direction">
+        <a class="bx-next" href="<?= $this->url('avaliacaoProcesso'); ?>">Voltar para listagem de avaliações</a></div></div>
+
+<?php else: ?>
+
+<form class="form-inline" name="formQualidade" id="formQualidade" enctype="multipart/form-data" role="form" method="POST" action="#">
+
+<?php 
+  //CRIAR UMA PARTIAL, USAR FORM E CAMPOS
+  echo $this->partial('form/audicao', array('form'=> $formQualidade, 'campos'=> $campos, 'avaliacao' => $avaliacao, 'aba' => 3));
+?>
+
+
+</div>
+<!--<p><input name="enviar" id="enviar" value="Enviar" type="submit"></p>-->
+<div class="bx-controls bx-has-controls-direction"><div class="bx-controls-direction">
+    <input name="enviar" id="enviar" value="Continuar" class="bx-next" style="background: #036fb7 none repeat scroll 0 0;" type="submit">
+    </div></div>
+</form>
+<?php endif; ?>
+</li>
+</ul>
+</div>
+
+</div>
+</div>
+
+
+

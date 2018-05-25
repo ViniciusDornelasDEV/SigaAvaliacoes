@@ -1,0 +1,62 @@
+<?php 
+	$categoria = '';
+	$quantidadeCampos = 0;
+?>
+<?php foreach ($campos as $campo) {
+
+	if($campo['aparecer'] == 'S'){
+		$quantidadeCampos++;
+		//se for uma nova categoria escrever o título da categoria
+		if($categoria != $campo['nome_categoria']){
+			$categoria = $campo['nome_categoria'];
+			echo '<h3>'.$campo['nome_categoria'].'</h3>';
+		}
+
+		//pegar elemento do form
+		$elementoAuditado = $formAuditado->get($campo['nome_campo']);
+		$elementoAvaliacao = $formAvaliacao->get($campo['nome_campo']);
+		
+		//escrever campo
+		echo '<p class="pergunta-'.$quantidadeCampos.'">'.$elementoAuditado->getLabel();
+		echo $this->formElement($elementoAuditado);
+		echo $this->formElement($formAuditado->get('observacoes_'.$campo['nome_campo']));
+
+		echo '<div id="div_'.$campo['nome_campo'].'" style="display:none;">';
+		echo $this->formElement($elementoAvaliacao);
+		echo $this->formElement($formAvaliacao->get('observacoes_'.$campo['nome_campo']));
+		echo '</div>
+			</p>';
+?>
+		<!-- EXIBIR/ESCONDER CAMPOS DO FORM -->
+		<div style="float: right;">
+		<?php if($avaliacaoAuditada && $avaliacao[$campo['nome_campo']] != $avaliacaoAuditada[$campo['nome_campo']]): ?>
+			<label style="display:none;" id="esconder_<?= $campo['nome_campo']; ?>">
+			        <a onclick="$('#div_<?= $campo['nome_campo']; ?>').hide();$('#esconder_<?= $campo['nome_campo']; ?>').hide();">
+			        	<img src="<?= $this->basePath('img/auditar.png'); ?>">Esconder
+			    	</a>
+			</label>
+
+			<label>
+			        <a onclick="$('#div_<?= $campo['nome_campo'] ?>').show();$('#esconder_<?= $campo['nome_campo'] ?>').show();">
+			        	<img src="<?= $this->basePath('img/ok.png'); ?>">Visualizar resp. original
+			    	</a>
+			</label>
+		<?php endif; ?>
+
+
+		<?php if(!empty($avaliacao['anexo_'.$campo['nome_campo']])): ?>
+		<label>
+		        <a href="<?= $this->url('download', array('id' => $avaliacao->id, 'campo' => 'anexo_'.$campo['nome_campo'], 'aba' => $aba)); ?>">
+		        <img src="<?= $this->basePath('img/download.png'); ?>">Download anexo</a>
+		</label>
+	<?php endif; ?>
+
+		</div>
+<?php
+	}
+}
+
+?>
+
+
+

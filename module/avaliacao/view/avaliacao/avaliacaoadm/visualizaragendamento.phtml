@@ -1,0 +1,71 @@
+ <h1>Formulário de Auto Avaliação<?php if($avaliacao): ?>
+    <a href="<?= $this->url('excluirAvaliacaoAdm', array('aba' => 1, 'id' => $avaliacao->id)) ?>" onclick="return confirm('Deseja realmente excluir a avaliação?');"> - DELETAR</a>
+  <?php endif; ?></h1>
+
+
+<!--
+  Livedate: 08.05.2015 21:07:23 / Killdate: 05.05.2025 21:07:23 
+-->
+<div style="display:none"><input name="unidade" id="unidade" value="Formulário de Auto Avaliação" type="text"></div>
+<a href="<?= $this->url('listaAvaliacaoAdm', array('tipo' => 'C')); ?>" class="acesso-usuario db"> Para ver os resuldados dos meses anteriores clique aqui</a>
+<div class="formulario restrito">
+
+<div class="pager-form">
+  <?php 
+    $arrayPeriodo = array('mes' => $mes, 'ano' => $ano, 'empresa' => $empresa);
+  ?>
+  <a class="link-auditoria active" data-slide-index="0" href="#">Agendamento</a>
+  <a class="link-comercial" data-slide-index="0" href="<?= $this->url('avaliacaoComercialAdm', $arrayPeriodo); ?>">Comercial</a>
+  <a class="link-processo" data-slide-index="1" href="<?= $this->url('avaliacaoProcessoAdm', $arrayPeriodo); ?>">Processos e Produção</a>
+  <a class="link-qualidade" data-slide-index="2" href="<?= $this->url('avaliacaoQualidadeAdm', $arrayPeriodo); ?>">Qualidade e Segurança</a>
+  <a class="link-seguranca" data-slide-index="3" href="<?= $this->url('avaliacaoSegurancaAdm', $arrayPeriodo); ?>">Experiência e satisfação do paciente</a>
+  <a class="link-ata" data-slide-index="3" href="<?= $this->url('avaliacaoAtaAdm', $arrayPeriodo); ?>">Plano de ação</a>
+  <a class="link-arquivos" data-slide-index="4" href="<?= $this->url('arquivosVisualizar', $arrayPeriodo) ?>">Arquivos SIGA para download</a>
+</div>
+
+<div style="max-width: 100%;" class="bx-wrapper"><div style="width: 100%; overflow: hidden; position: relative; height: auto;" class="bx-viewport"><ul style="width: 615%; position: relative; transition-duration: 0s; transform: translate3d(0px, 0px, 0px);" class="slider-form">
+<li style="float: left; list-style: outside none none; position: relative; width: 992px;"> 
+
+<div class="form-auditoria">
+<?php if(!$avaliacao): ?>
+<label>
+    Não existe formulário respondido para o período informado!
+</label>
+<div class="bx-controls bx-has-controls-direction">
+    <div class="bx-controls-direction">
+        <a class="bx-next" href="<?= $this->url('listaAvaliacaoAdm', array('tipo' => 'C')); ?>">Voltar para listagem de avaliações</a></div></div>
+
+<?php else: ?>
+<form class="form-inline" name="formAgendamento" id="formAgendamento" enctype="multipart/form-data" role="form" method="POST" action="#">
+
+<?php 
+  //CRIAR UMA PARTIAL, USAR FORM E CAMPOS
+  echo $this->partial('form/auditado', array(
+                                              'formAuditado'  => $formAuditado,
+                                              'formAvaliacao' =>  $formAvaliacao,
+                                              'campos'=> $campos, 
+                                              'avaliacaoAuditada' => $avaliacaoAuditada, 
+                                              'avaliacao' => $avaliacao,
+                                              'aba'   => 1
+                                            ));
+?>
+
+
+</div>
+<?php if($avaliacaoAuditada): ?>
+  <div class="bx-controls bx-has-controls-direction"><div class="bx-controls-direction"><a class="bx-next" href="<?= $this->url('exportarAgendamento', array('id' => $avaliacaoAuditada->id)); ?>">Exportar</a></div></div>
+<?php else: ?>
+  <div class="bx-controls bx-has-controls-direction"><div class="bx-controls-direction"><a class="bx-next" href="<?= $this->url('exportarAgendamento', array('id' => $avaliacao->id)); ?>">Exportar</a></div></div>
+<?php endif; ?>
+
+</form>
+
+<?php endif; ?>
+</li>
+</ul>
+</div>
+
+</div>
+</div>
+
+

@@ -1,0 +1,282 @@
+ <div class="container theme-showcase" role="main" style="margin-bottom:10px;padding:0px;">
+      <button type="button" class="btn btn-default" onclick="location.href='<?= $this->url('usuarioNovo'); ?>'" style="float: right;width:100px;">
+      <img src="<?php echo $this->basePath('img/novo.png') ?>" alt="Novo">
+      Novo</button>
+
+    <ol class="breadcrumb" style="margin-bottom: 0px;">
+      <li><a href="<?= $this->url('home'); ?>">Home</a></li>
+      <li><a href="<?= $this->url('usuario'); ?>">Usuários</a></li>
+      <li class="active">Alterar</li>
+    </ol>
+  </div>
+
+    <div class="container theme-showcase" role="main">
+      <div class="row">
+          <div class="panel panel-default">
+          <div class="panel-heading">
+              <h3 class="panel-title">Alteração de usuário</h3>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                  <?php echo $this->partial('form/generic', array('form'=> $formUsuario, 'route'=> '')) ?>
+
+            </div>
+          </div>
+      </div>
+    </div>
+    </div>
+
+
+
+
+    <!-- VINCULAR EMPRESAS PARA USUÁRIO AUXILIAR -->
+    <?php if($formEmpresa): ?>
+      <div class="container theme-showcase" role="main">
+        <div class="row">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Vincular empresa para auxiliar</h3>
+            </div>
+            <div class="panel-body">
+              <div class="form-group">
+                <?php echo $this->partial('form/generic', array('form'=> $formEmpresa, 'route'=> '')) ?>
+
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    <?php endif; ?>
+    <!-- LISTAGEM DE EMPRESAS PARA USUÁRIO AUXILIAR -->
+    <?php if($auxiliarEmpresas): ?>
+      <?php if($auxiliarEmpresas->count() == 0): ?>
+        <div class="container theme-showcase" role="main">
+          <div class="alert alert-info">Nenhuma empresa vinculada!</div>
+        </div>
+      <?php else: ?>
+        <div class="container theme-showcase" role="main" style="margin-bottom:10px;padding:0px;">
+            <button type="button" class="btn btn-danger" onclick="location.href='<?= $this->url('empresasAuxiliarDeletar', array('usuario' => $usuario->id)); ?>'" style="float: right;">
+            <img src="<?php echo $this->basePath('img/deletar.png') ?>" alt="Desvincular empresas">
+            Desvincular empresas</button>
+        </div>
+      <div class="container theme-showcase" role="main">
+        <div class="row">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Empresas vinculadas</h3>
+            </div>
+            <div class="panel-body">
+              <table class="table">
+                <tr>
+                  <th style="text-align: center">Nome da empresa</th>
+                  <th style="text-align: center">Ações</th>
+                </tr>
+                <?php if($empresasAtivas->count() == $auxiliarEmpresas->count()): ?>
+                  <tr>
+                    <td style="text-align: center">Todos</td>
+                    <td style="text-align: center">  
+                      <img src="<?php echo $this->basePath('img/deletar.png') ?>" onclick="alerta('<?= $this->url('empresasAuxiliarDeletar', array('usuario' => $usuario->id)); ?>', 'deletar');" title="Deletar">
+                    </td>  
+                  </tr>
+                <?php else: ?>
+                  <?php foreach ($auxiliarEmpresas as $empresa): ?>
+                    <tr>
+                      <td style="text-align: center"><?= $empresa['nome_empresa']; ?></td>
+                      <td style="text-align: center">  
+                        <img src="<?php echo $this->basePath('img/deletar.png') ?>" onclick="alerta('<?= $this->url('empresaAuxiliarDeletar', array('id' => $empresa->id, 'usuario' => $usuario->id)); ?>', 'deletar');" title="Deletar">
+                      </td>  
+                    </tr>
+                  <?php endforeach; ?>
+                <?php endif; ?>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    <?php endif; ?>
+  <?php endif; ?>
+
+
+
+
+
+    <!-- ABAS -->
+    <?php if($usuario->id_usuario_tipo == 5): ?>
+    <?php 
+      $totalAbas = count($abas);
+    ?>
+    <!-- VINCULAR FORMULARIO -->
+  <div class="container theme-showcase" role="main">
+    <div class="row">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+              <h3 class="panel-title">Vincular avaliação</h3>
+          </div>
+          <div class="panel-body">
+            <div class="form-group">
+              <?php echo $this->partial('form/generic', array('form'=> $formAba, 'route'=> '')) ?>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+    <!-- LISTAGEM DE ABAS -->
+    <?php if(!$abas || $totalAbas == 0): ?>
+      <div class="alert alert-info">Nenhuma avaliação vinculada!</div>
+    <?php else: ?>
+     <div class="container theme-showcase" role="main">
+      <div class="row">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Avaliações vinculadas</h3>
+            </div>
+            <div class="panel-body">
+              <table class="table">
+                <tr>
+                  <th style="text-align: center">Nome da empresa</th>
+                  <th style="text-align: center">Nome da avaliação</th>
+                  <th style="text-align: center">Ações</th>
+              </tr>
+              <?php foreach ($abas as $aba): ?>
+              <tr>
+                <td style="text-align: center"><?= $aba['nome_empresa']; ?></td>
+                <td style="text-align: center"><?= $aba['nome_aba']; ?></td>
+                <td style="text-align: center">  
+                  <img src="<?php echo $this->basePath('img/deletar.png') ?>" onclick="alerta('<?= $this->url('abaDesvincular', array('aba' => $aba['id'], 'id' => $usuario->id)); ?>', 'deletar');" title="Deletar">
+                </td>
+              </tr>
+            <?php endforeach; ?>
+            </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    <?php endif; ?>
+  <?php endif; ?>
+
+
+
+   <!-- VINCULAR MEDICOS PARA TIPO DIRETOR MEDICO -->
+    <div class="container theme-showcase" role="main" style="margin-bottom:10px;padding:0px;">
+      <button type="button" class="btn btn-default" onclick="location.href='<?= $this->url('usuarioAlterar', array('id' => $usuario->id)); ?>'" style="float: right;">
+      <img src="<?php echo $this->basePath('img/novo.png') ?>" alt="Novo">
+      Novo médico</button>
+  </div>
+    <?php if($formMedico): ?>
+  <div class="container theme-showcase" role="main">
+    <div class="row">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+              <h3 class="panel-title">Vincular médico</h3>
+          </div>
+          <div class="panel-body">
+            <div class="form-group">
+              <?php echo $this->partial('form/generic', array('form'=> $formMedico, 'route'=> '')) ?>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+    <!-- LISTAGEM DE MEDICOS -->
+    <?php if(!$medicos || $medicos->count() == 0): ?>
+      <div class="container theme-showcase" role="main">
+        <div class="alert alert-info">Nenhum médico vinculado!</div>
+      </div>
+    <?php else: ?>
+     <div class="container theme-showcase" role="main">
+      <div class="row">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Médicos vinculados</h3>
+            </div>
+            <div class="panel-body">
+              <table class="table">
+                <tr>
+                  <th style="text-align: center">Nome da empresa</th>
+                  <th style="text-align: center">Nome do médico</th>
+                  <th style="text-align: center">Ativo</th>
+                  <th style="text-align: center">Ações</th>
+              </tr>
+              <?php foreach ($medicos as $medico): ?>
+              <tr>
+                <td style="text-align: center"><?= $medico->nome_empresa; ?></td>
+                <td style="text-align: center"><?= $medico->nome_medico; ?></td>
+                <td style="text-align: center"><?= $this->status($medico->ativo); ?></td>
+                <td style="text-align: center">  
+                  <img src="<?= $this->basePath('img/editar.png'); ?>" title="Editar" 
+                    onclick="location.href='<?= $this->url('usuarioAlterar', array('id' => $usuario->id, 'idMedico' => $medico->id)); ?>'" style="cursor: pointer;">
+                  
+                  <span style="margin-right:4px;"></span> 
+
+                  <img src="<?php echo $this->basePath('img/ok.png') ?>" onclick="location.href='<?= $this->url('medicoAtivar', array('id' => $medico->id, 'diretor' => $usuario->id)); ?>'" title="Reativar">
+
+                  <span style="margin-right:4px;"></span>
+
+                  <img src="<?php echo $this->basePath('img/deletar.png') ?>" onclick="alerta('<?= $this->url('medicoDesativar', array('id' => $medico->id, 'diretor' => $usuario->id)); ?>', 'desativar');" title="Deletar">
+
+
+                </td>
+              </tr>
+            <?php endforeach; ?>
+            </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    <?php endif; ?>
+  <?php endif; ?>
+
+
+   <!-- VINCULAR OPERADORES PARA TIPO ADMINISTRADOR CALLCENTER -->
+    <?php if($formOperador): ?>
+  <div class="container theme-showcase" role="main">
+    <div class="row">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+              <h3 class="panel-title">Vincular operador</h3>
+          </div>
+          <div class="panel-body">
+            <div class="form-group">
+              <?php echo $this->partial('form/generic', array('form'=> $formOperador, 'route'=> '')) ?>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+    <!-- LISTAGEM DE OPERADORES -->
+    <?php if(!$operadores || $operadores->count() == 0): ?>
+      <div class="container theme-showcase" role="main">
+        <div class="alert alert-info">Nenhum operador vinculado!</div>
+      </div>
+    <?php else: ?>
+     <div class="container theme-showcase" role="main">
+      <div class="row">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Operadores vinculados</h3>
+            </div>
+            <div class="panel-body">
+              <table class="table">
+                <tr>
+                  <th style="text-align: center">Nome da empresa</th>
+                  <th style="text-align: center">Nome do operador</th>
+                  <th style="text-align: center">Ativo</th>
+                  <th style="text-align: center">Ações</th>
+              </tr>
+              <?php foreach ($operadores as $operador): ?>
+              <tr>
+                <td style="text-align: center"><?= $operador->nome_empresa; ?></td>
+                <td style="text-align: center"><?= $operador->nome_operador; ?></td>
+                <td style="text-align: center"><?= $this->status($operador->ativo); ?></td>
+                <td style="text-align: center">  
+                  <img src="<?php echo $this->basePath('img/deletar.png') ?>" onclick="alerta('<?= $this->url('operadorDesativar', array('id' => $operador->id, 'diretor' => $usuario->id)); ?>', 'desativar');" title="Deletar">
+                </td>
+              </tr>
+            <?php endforeach; ?>
+            </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    <?php endif; ?>
+  <?php endif; ?>

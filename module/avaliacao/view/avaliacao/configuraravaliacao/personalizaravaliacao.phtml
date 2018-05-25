@@ -1,0 +1,62 @@
+
+
+  <div class="container theme-showcase" role="main">
+    <ul class="nav nav-tabs">
+      <li role="presentation">
+        <a style="<?= $aba->id == 1 ? 'background: #e75990;' : ''; ?>" href="<?= $this->url('personalizarAvaliacao', array('empresa' => $idEmpresa, 'aba' => 1)); ?>">Agendamento
+        </a>
+      </li>
+      <li role="presentation">
+        <a style="<?= $aba->id == 9 ? 'background: #DAA520;' : ''; ?>" href="<?= $this->url('personalizarAvaliacao', array('empresa' => $idEmpresa, 'aba' => 9)); ?>">Comercial
+        </a>
+      </li>
+      <li role="presentation">
+        <a style="<?= $aba->id == 2 ? 'background: #dd6957;' : ''; ?>" href="<?= $this->url('personalizarAvaliacao', array('empresa' => $idEmpresa, 'aba' => 2)); ?>">Processos e Produção
+        </a>
+      </li>
+      <li role="presentation">
+        <a style="<?= $aba->id == 3 ? 'background:#5780b1;' : ''; ?>" href="<?= $this->url('personalizarAvaliacao', array('empresa' => $idEmpresa, 'aba' => 3)); ?>">Qualidade e Segurança
+        </a>
+      </li>
+      <li role="presentation">
+        <a style="<?= $aba->id == 4 ? 'background:#a6ca6e;' : ''; ?>" href="<?= $this->url('personalizarAvaliacao', array('empresa' => $idEmpresa, 'aba' => 4)); ?>">Experiência e satisfação do paciente
+        </a>
+      </li>
+      <li role="presentation">
+        <a style="<?= $aba->id == 6 ? 'background:#8B4513;' : ''; ?>" href="<?= $this->url('personalizarAvaliacao', array('empresa' => $idEmpresa, 'aba' => 6)); ?>">Médico/qualitativa
+        </a>
+      </li>
+      <li role="presentation">
+        <a style="<?= $aba->id == 7 ? 'background:#836FFF;' : ''; ?>" href="<?= $this->url('personalizarAvaliacao', array('empresa' => $idEmpresa, 'aba' => 7)); ?>">Médico/PID
+        </a>
+      </li>
+      <li role="presentation">
+        <a style="<?= $aba->id == 8 ? 'background:#a94442;' : ''; ?>" href="<?= $this->url('personalizarAvaliacao', array('empresa' => $idEmpresa, 'aba' => 8)); ?>">Call Center
+        </a>
+      </li>
+    </ul>
+  </div>
+
+   <div class="container theme-showcase" role="main" style="margin-bottom:10px;padding:0px;">
+    <ol class="breadcrumb" style="margin-bottom: 0px;">
+      <li><a href="<?= $this->url('home'); ?>">Home</a></li>
+      <li><a href="<?= $this->url('empresa'); ?>">Empresas</a></li>
+      <li class="active">Personalizar avaliação</li>
+    </ol>
+  </div>
+
+    <div class="container theme-showcase" role="main">
+      <div class="row">
+          <div class="panel panel-default">
+          <div class="panel-heading">
+              <h3 class="panel-title">Configuração de avaliações da empresa 01</h3>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                  <?php echo $this->partial('form/personalizarcampos', array('form'=> $formAvaliacao, 'route'=> '')) ?>
+
+            </div>
+          </div>
+      </div>
+    </div>
+    </div>

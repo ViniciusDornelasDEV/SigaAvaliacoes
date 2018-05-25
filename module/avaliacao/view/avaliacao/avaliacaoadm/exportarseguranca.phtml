@@ -1,0 +1,196 @@
+<?php echo $this->doctype(); ?>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+    </head>
+
+<?php
+  $nome_arquivo = "Seguranca";
+  header("Content-type: application/vnd.ms-excel");
+  header("Content-type: application/force-download");
+  header("Content-Disposition: attachment; filename=$nome_arquivo.xls");
+  header("Pragma: no-cache");
+?>
+<body>
+  <table border="1">
+    <tbody>
+        <!-- Confirmação -->
+        <tr>
+          <td colspan="2" style="font-weight: bold;font-size:35px;">Assistencial</td>
+        </tr>
+        <tr>
+          <td colspan="2">Medicamentos administrados com prescrição médica e alta medica para sedação </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->medicamentos); ?></td>
+          <td><?= $avaliacao->observacoes_medicamentos ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Eventos adversos registrados em busca ativa </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->eventos); ?></td>
+          <td><?= $avaliacao->observacoes_eventos ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Amostras enviadas ao laboratório protocoladas </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->amostras); ?></td>
+          <td><?= $avaliacao->observacoes_amostras ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Orientação sobre os termos de consentimentos, recusa e anuência </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->orientacao); ?></td>
+          <td><?= $avaliacao->observacoes_orientacao ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Preenchimento completo dos registros da assistência </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->preenchimento); ?></td>
+          <td><?= $avaliacao->observacoes_preenchimento ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Conferência dos dados dos procedimento versus paciente antes da realização do exame</td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->conferencia); ?></td>
+          <td><?= $avaliacao->observacoes_conferencia ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Fluxo de atendimento as urgências e emergencias</td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->fluxo); ?></td>
+          <td><?= $avaliacao->observacoes_fluxo ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Disponibiliza enxoval unitário</td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->enxoval); ?></td>
+          <td><?= $avaliacao->observacoes_enxoval ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Dispõe de materiais de suporte básico a vida (Laringoscópio, desfibrilador, glicosímetro, oxímetro, bala de O2, vácuo) e testes diário dos mesmos.</td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->materiais); ?></td>
+          <td><?= $avaliacao->observacoes_materiais ?></td>
+        </tr>
+
+
+        <!-- Gestão -->
+        <tr>
+          <td colspan="2" style="font-weight: bold;font-size:35px;">Equipamento e Instalações</td>
+        </tr>
+        <tr>
+          <td colspan="2">Registro de Abertura de chamados para manutenção, desde a detecção do problema a comunicação a empresa terceirizada </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->registro); ?></td>
+          <td><?= $avaliacao->observacoes_registro ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Contingência para equipamentos críticos de suporte a vida </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->contingencia); ?></td>
+          <td><?= $avaliacao->observacoes_contingencia ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Inventário dos equipamentos e Manutenção preventiva e corretiva dos mesmos </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->inventario); ?></td>
+          <td><?= $avaliacao->observacoes_inventario ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Registro de manutenção e calibração: Controle de temperatura e umidade dos ambientes, e do nível de Helio e Compressor. Registro de Calibração e teste de constância dos aparelhos de imagem </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->calibracao); ?></td>
+          <td><?= $avaliacao->observacoes_calibracao ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Cronograma executado de manutenção das instalações que contemple (Registros de controle de pragas, análise microbiológica da água , limpeza da caixa d água, manutenção elevador e ar condicionado (manutenção predial e Sinalização das áreas)  </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->cronograma); ?></td>
+          <td><?= $avaliacao->observacoes_cronograma ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Sistema Elétrico – Conforme Norma Regulamentadora 10 – Portaria 3.214/78, regida pela Lei 6.514/77  </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->sistemaeletrico); ?></td>
+          <td><?= $avaliacao->observacoes_sistemaeletrico ?></td>
+        </tr>
+
+
+        <!-- Gestão -->
+        <tr>
+          <td colspan="2" style="font-weight: bold;font-size:35px;">Higienização</td>
+        </tr>
+        <tr>
+          <td colspan="2">Limpeza terminal e concorrente das áreas </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->limpeza); ?></td>
+          <td><?= $avaliacao->observacoes_limpeza ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Padronização do processo de diluição de saneantes, incluindo identificação e controle dos mesmos</td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->saneantes); ?></td>
+          <td><?= $avaliacao->observacoes_saneantes ?></td>
+        </tr>
+
+        <!-- Rastreamento -->
+        <tr>
+          <td colspan="2" style="font-weight: bold;font-size:35px;">Suprimentos</td>
+        </tr>
+        <tr>
+          <td colspan="2">Infra estrura adequada para armazenamento dos medicamentos</td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->infraarmazenamento); ?></td>
+          <td><?= $avaliacao->observacoes_infraarmazenamento ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Controle de psicotrópicos e rastreabilidade de medicamentos</td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->psicotropicos); ?></td>
+          <td><?= $avaliacao->observacoes_psicotropicos ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Controle de estoque de mat/med</td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->controleestoque); ?></td>
+          <td><?= $avaliacao->observacoes_controleestoque ?></td>
+        </tr>
+    </tbody>
+  </table>
+</body>

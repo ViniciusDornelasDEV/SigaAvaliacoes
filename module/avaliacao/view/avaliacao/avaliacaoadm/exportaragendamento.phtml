@@ -1,0 +1,131 @@
+<?php echo $this->doctype(); ?>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+    </head>
+
+<?php
+  $nome_arquivo = "Agendamento";
+  header("Content-type: application/vnd.ms-excel");
+  header("Content-type: application/force-download");
+  header("Content-Disposition: attachment; filename=$nome_arquivo.xls");
+  header("Pragma: no-cache");
+?>
+<body>
+  <table border="1">
+    <tbody>
+        <!-- Confirmação -->
+        <tr>
+          <td colspan="2" style="font-weight: bold;font-size:35px;">Confirmação</td>
+        </tr>
+        <tr>
+          <td colspan="2">SMS de confirmação de agendamento (processo de verificação de caixa de entrada) </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->sms_agendamento); ?></td>
+          <td><?= $avaliacao->observacoes_agendamento ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">SMS de confirmação de presença </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->sms_presenca); ?></td>
+          <td><?= $avaliacao->observacoes_presenca ?></td>
+        </tr>
+
+
+        <!-- Gestão -->
+        <tr>
+          <td colspan="2" style="font-weight: bold;font-size:35px;">Gestão</td>
+        </tr>
+        <tr>
+          <td colspan="2">Utilização do Call back</td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->callback); ?></td>
+          <td><?= $avaliacao->observacoes_callback ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Não Agendar RX</td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->rx); ?></td>
+          <td><?= $avaliacao->observacoes_rx ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Processo de contato ativo com cliente </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->ativocliente); ?></td>
+          <td><?= $avaliacao->observacoes_ativocliente ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Processo de recuperação de no-show </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->noshow); ?></td>
+          <td><?= $avaliacao->observacoes_noshow ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Processo de pré-autorização de exames</td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->exames); ?></td>
+          <td><?= $avaliacao->observacoes_exames ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Script de ocupação (agendamento ativo)</td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->agendamentoativo); ?></td>
+          <td><?= $avaliacao->observacoes_agendamentoativo ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Estudo atualizado de dimensionamento e forecast </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->forecast); ?></td>
+          <td><?= $avaliacao->observacoes_forecast ?></td>
+        </tr>
+
+
+        <!-- Gestão -->
+        <tr>
+          <td colspan="2" style="font-weight: bold;font-size:35px;">Sistema</td>
+        </tr>
+        <tr>
+          <td colspan="2">Gestão a vista: Painel de horários livres, status de confirmação, metas diárias de agendamento e nível de serviço</td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->gestaovista); ?></td>
+          <td><?= $avaliacao->observacoes_gestaovista ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Email de confirmação de agendamento com instruções e preparo </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->emailagendamento); ?></td>
+          <td><?= $avaliacao->observacoes_emailagendamento ?></td>
+        </tr>
+
+        <tr>
+          <td colspan="2">Pesquisa de satisfação no fim da ligação </td>
+        </tr>
+        <tr>
+          <td><?= $this->defineStatus($avaliacao->fimligacao); ?></td>
+          <td><?= $avaliacao->observacoes_fimligacao ?></td>
+        </tr>
+
+
+
+    </tbody>
+  </table>
+</body>

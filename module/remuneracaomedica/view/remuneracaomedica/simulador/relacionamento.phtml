@@ -1,0 +1,422 @@
+<div id="page-content-wrapper">
+                    <div id="page-content" style="margin-top: 0px; min-height: 874px;"> 
+
+                        <div class="panel">
+                            <div class="panel-body">
+                                <h3 style="" class="title-hero">
+                                    Critérios de Pontuação
+                                </h3>                                
+                                <form name="formMedico" action="#" method="POST">
+                                    <div class="row form-group">
+                                        <div class="col-sm-2">
+                                            <div class="input-group">
+                                                
+                                                <select class="form-control" name="medico">
+                                                    <option>-- Selecione --</option>
+                                                    <?php foreach ($medicos as $medico) : ?>
+                                                        <?php 
+                                                            $selected = '';
+                                                            if($medico->id == $idMedico){
+                                                                $selected = 'SELECTED';
+                                                            }
+                                                        ?>
+                                                        <option <?= $selected; ?> value="<?= $medico->id ?>"><?= $medico->nome_medico; ?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-sm-2">
+                                            <div class="input-group">
+                                                <button type="submit" class="btn btn-success" style="float: right;margin-right: 10px;">
+                                                    <img src="/img/pesquisar.png" alt="Pesquisar">
+                                                    Pesquisar
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <?php if(count($indicadores) > 0): ?>
+                                <div class="example-box-wrapper">
+                                    <table style="" class="table table-bordered table-striped table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th>Mês</th>
+                                                <th>Nível</th>
+                                                <th>Qtde de<br>Periodos</th>
+                                                <th>Qtde de<br>Exames</th>
+                                                <th>Média<br>Exames/Per. 
+                                                    <a data-original-title="Qtde de Exames / Qtde de Periodos" href="" title="" data-toggle="tooltip">
+                                                        <i class="glyph-icon tooltip-button icon-question-circle"></i>
+                                                    </a>
+                                                </th>
+                                                <th>Eficiência 
+                                                    <a data-original-title="Produtividade" href="" title="" data-toggle="tooltip">
+                                                        <i class="glyph-icon tooltip-button icon-question-circle"></i>
+                                                    </a>
+                                                </th>
+                                                <th>Efetividade<br>Clínica 
+                                                    <a data-original-title="Laudos Entregues em Atraso" href="" title="" data-toggle="tooltip">
+                                                        <i class="glyph-icon tooltip-button icon-question-circle"></i>
+                                                    </a>
+                                                </th>
+                                                <th>Satisfação<br>do Paciente</th>
+                                                <th>Eduação e<br>Pesquisa</th>
+                                                <th>Pontuação</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php foreach ($indicadores as $indicador) : ?>
+                                            <tr class="ng-scope">
+                                                <td class="ng-binding"><?= $indicador['mes'].'/'.$indicador['ano']; ?></td>
+                                                <td class="ng-binding"><?= $indicador['nivel'] ?></td>
+                                                <td class="ng-binding">
+                                                    <?= $indicador['periodos'] ?>
+                                                </td>
+                                                <td class="ng-binding"><?= $indicador['exames'] ?></td>
+                                                <td class="ng-binding">
+                                                    <?= number_format($indicador['media_exames'], 2); ?>
+                                                </td>
+                                                <td class="ng-binding"><?= $indicador['eficiencia'] ?></td>
+                                                <td>
+                                                    <?= $indicador['efetividade'] ?>
+                                                </td>
+                                                <td class="ng-binding"><?= $indicador['satisfacao_paciente'] ?></td>
+                                                <td class="ng-binding"><?= $indicador['educacao_pesquisa'] ?></td>
+                                                <td class="ng-binding"><?= $indicador['pontuacao'] ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                        </tbody>
+                                        <tbody>
+                                            <tr class="ng-scope">
+                                                <th colspan="2">Totais:</th>
+                                                <th class="ng-binding"><?= $valoresCalculados['totais']['periodos']; ?></th>
+                                                <th class="ng-binding"><?= $valoresCalculados['totais']['exames']; ?></th>
+                                                <th class="ng-binding"><?= number_format($valoresCalculados['totais']['media_exames'], 2); ?></th>
+                                                <th class="ng-binding"><?= $valoresCalculados['totais']['eficiencia']; ?></th>
+                                                <th class="ng-binding"><?= $valoresCalculados['totais']['efetividade']; ?></th>
+                                                <th class="ng-binding"><?= $valoresCalculados['totais']['satisfacao_paciente']; ?></th>
+                                                <th class="ng-binding"><?= $valoresCalculados['totais']['educacao_pesquisa']; ?></th>
+                                                <th class="ng-binding"><?= $valoresCalculados['totais']['pontuacao']; ?></th>
+                                            </tr>
+                                         
+                                            <tr class="ng-scope">
+                                                <th colspan="2">Médias:</th>
+                                                <th class="ng-binding"><?= $valoresCalculados['medias']['periodos']; ?></th>
+                                                <th class="ng-binding"><?= $valoresCalculados['medias']['exames']; ?></th>
+                                                <th class="ng-binding"><?= number_format($valoresCalculados['medias']['media_exames'], 2); ?></th>
+                                                <th class="ng-binding"><?= $valoresCalculados['medias']['eficiencia']; ?></th>
+                                                <th class="ng-binding"><?= $valoresCalculados['medias']['efetividade']; ?></th>
+                                                <th class="ng-binding"><?= $valoresCalculados['medias']['satisfacao_paciente']; ?></th>
+                                                <th class="ng-binding"><?= $valoresCalculados['medias']['educacao_pesquisa']; ?></th>
+                                                <th class="ng-binding"><?= $valoresCalculados['medias']['pontuacao']; ?></th>
+                                            </tr>
+                                                                                 
+                                    </tbody></table>
+                                </div>
+                            </div>
+                        </div>  
+
+                        <div class="">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="panel text-center">
+                                        <div id="media" class="xs-gauge" style="height:100px;margin-left: 40px;">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="panel text-center">
+                                        <div id="eficiencia" class="xs-gauge" style="height:100px;margin-left: 40px;">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="panel text-center">
+                                        <div id="efetividade" class="xs-gauge" style="height:100px;margin-left: 40px;">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="panel text-center">
+                                        <div id="satisfacao" class="xs-gauge" style="height:100px;margin-left: 40px;">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="panel text-center">
+                                        <div id="educacao" class="xs-gauge" style="height:100px;margin-left: 40px;">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="panel text-center">
+                                        <div id="pontuacao" class="xs-gauge" style="height:100px;margin-left: 40px;">
+
+                                        </div>
+                                    </div>
+                                </div>                            
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="panel">
+                                        <div class="panel-body">
+                                            <h3 class="title-hero">
+                                                Gráfico do Periodo
+                                            </h3>
+
+                                            <canvas id="canvas" height="300" width="600"></canvas>
+                                        </div>
+                                    </div>                                
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="panel">
+                                        <div class="panel-body">
+                                            <h3 class="title-hero">
+                                                Premiação
+                                            </h3>
+                                            <?php if($valoresCalculados['medias']['pontuacao'] > 799): ?>
+                                            <span class="ng-hide">
+                                                <div class="alert alert-warning">
+                                                    <div class="bg-orange alert-icon">
+                                                        <i class="glyph-icon icon-credit-card"></i>
+                                                    </div>
+                                                    <div class="alert-content">
+                                                        <h4 class="alert-title">CARTÃO OURO</h4>
+                                                        <p>Parabéns, elegivel ao cartão ouro!</p>
+                                                    </div>
+                                                </div>
+                                            </span>
+                                        <?php endif; ?>
+                                            <?php if($valoresCalculados['medias']['pontuacao'] > 649 && $valoresCalculados['medias']['pontuacao'] < 800): ?>
+                                            <span style="" class="">
+                                                <div class="alert alert-info">
+                                                    <div class="bg-black alert-icon">
+                                                        <i class="glyph-icon icon-credit-card"></i>
+                                                    </div>
+                                                    <div class="alert-content">
+                                                        <h4 class="alert-title">CARTÃO PRATA</h4>
+                                                        <p>Parabéns, elegivel ao cartão prata!</p>
+                                                    </div>
+                                                </div>
+                                            </span>
+                                        <?php endif; ?>
+
+                                            <?php if($valoresCalculados['medias']['pontuacao'] > 499 
+                                                     && $valoresCalculados['medias']['pontuacao'] <650): ?>
+                                                <span class="ng-hide">
+                                                    <div class="alert" style="background: #795548">
+                                                        <div class="bg-black alert-icon">
+                                                            <i class="glyph-icon icon-credit-card"></i>
+                                                        </div>
+                                                        <div class="alert-content" style="color:#fff">
+                                                            <h4 class="alert-title">CARTÃO BRONZE</h4>
+                                                            <p>Parabéns, elegivel ao cartão bronze!</p>
+                                                        </div>
+                                                    </div>
+                                                </span>
+                                            <?php endif; ?>
+
+                                            <?php if($valoresCalculados['medias']['pontuacao'] < 500): ?>
+                                                <span style="" class="ng-hide" ng-show="((totalPontos_ID / totalMeses) &lt; 500)">
+                                                    <div class="alert alert-danger">
+                                                        <p>Não elegivel a cartões!</p>
+                                                    </div>
+                                                </span>
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>                                
+                                </div>                            
+                            </div>
+                        </div>
+                    <?php else: ?>
+                        <div class="alert alert-info">
+                          Selecione um médico
+                        </div>
+                    <?php endif; ?>
+                    </div>
+                </div>
+            </div>            
+        </div>
+
+        <script type="text/javascript">
+            var media, eficiencia, efetividade, satisfacao, educacao, pontuacao;
+
+            document.addEventListener("DOMContentLoaded", function(event) {
+                media = new JustGage({
+                    id: "media",
+                    value: <?= number_format($valoresCalculados['medias']['media_exames'], 2); ?>,
+                    width: 100,
+                    height: 100,
+                    min: 0,
+                    max: 48,
+                    title: "Média Exa./Per."
+                });
+
+                eficiencia = new JustGage({
+                    id: "eficiencia",
+                    value: <?= $valoresCalculados['medias']['eficiencia']; ?>,
+                    width: 100,
+                    height: 100,
+                    min: 0,
+                    max: 1688,
+                    title: "Eficiência"
+                });
+
+                efetividade = new JustGage({
+                    id: "efetividade",
+                    value: <?= $valoresCalculados['medias']['efetividade']; ?>,
+                    width: 100,
+                    height: 100,
+                    min: 0,
+                    max: 100,
+                    title: "Efetividade"
+                });
+
+                satisfacao = new JustGage({
+                    id: "satisfacao",
+                    value: <?= $valoresCalculados['medias']['satisfacao_paciente']; ?>,
+                    width: 100,
+                    height: 100,
+                    min: 0,
+                    max: 100,
+                    title: "Satisfação"
+                });
+
+                educacao = new JustGage({
+                    id: "educacao",
+                    value: <?= $valoresCalculados['medias']['educacao_pesquisa']; ?>,
+                    width: 100,
+                    height: 100,
+                    min: 0,
+                    max: 100,
+                    title: "Edu. e Pesq."
+                });
+
+                pontuacao = new JustGage({
+                    id: "pontuacao",
+                    value: <?= $valoresCalculados['medias']['pontuacao']; ?>,
+                    width: 100,
+                    height: 100,
+                    min: 0,
+                    max: 1668,
+                    title: "Pontuação"
+                });
+            });
+        </script>
+
+
+    <script>
+        var lineChartData = {
+            labels : [
+            <?php foreach ($indicadores as $indicador) : ?>
+                "<?= $indicador['mes'].'/'.$indicador['ano'] ?>",
+            <?php endforeach; ?>
+            ],
+            datasets : [
+                {
+                    label: "Média Exa./Per.",
+                    fillColor: "rgba(220,220,220,0)",
+                    strokeColor : "#BC8F8F",
+                    pointColor : "#BC8F8F",
+                    pointStrokeColor : "#BC8F8F",
+                    pointHighlightFill : "#BC8F8F",
+                    pointHighlightStroke : "#BC8F8F",
+
+                    data : [
+                    <?php foreach ($indicadores as $indicador) : ?>
+                        "<?= $indicador['media_exames'] ?>",
+                    <?php endforeach; ?>
+                    ]
+                },
+                {
+                    label: "Eficiência",
+                    fillColor: "rgba(220,220,220,0)",
+                    strokeColor : "#1E90FF",
+                    pointColor : "#1E90FF",
+                    pointStrokeColor : "#1E90FF",
+                    pointHighlightFill : "#1E90FF",
+                    pointHighlightStroke : "#1E90FF",
+                    data : [
+                        <?php foreach ($indicadores as $indicador) : ?>
+                            "<?= $indicador['eficiencia'] ?>",
+                        <?php endforeach; ?>
+                    ]
+                },
+                {
+                    label: "Efetividade",
+                    fillColor: "rgba(220,220,220,0)",
+                    strokeColor : "#6B8E23",
+                    pointColor : "#6B8E23",
+                    pointStrokeColor : "#6B8E23",
+                    pointHighlightFill : "#6B8E23",
+                    pointHighlightStroke : "#6B8E23",
+                    data : [
+                        <?php foreach ($indicadores as $indicador) : ?>
+                            "<?= $indicador['efetividade'] ?>",
+                        <?php endforeach; ?>
+                    ]
+                },
+                {
+                    label: "Satisfação",
+                    fillColor: "rgba(220,220,220,0)",
+                    strokeColor : "#000000",
+                    pointColor : "#000000",
+                    pointStrokeColor : "#000000",
+                    pointHighlightFill : "#000000",
+                    pointHighlightStroke : "#000000",
+                    data : [
+                        <?php foreach ($indicadores as $indicador) : ?>
+                            "<?= $indicador['satisfacao_paciente'] ?>",
+                        <?php endforeach; ?>
+                    ]
+                },
+                {
+                    label: "Edu. e Pesq.",
+                    fillColor: "rgba(220,220,220,0)",
+                    strokeColor : "#DAA520",
+                    pointColor : "#DAA520",
+                    pointStrokeColor : "#DAA520",
+                    pointHighlightFill : "#DAA520",
+                    pointHighlightStroke : "#DAA520",
+                    data : [
+                        <?php foreach ($indicadores as $indicador) : ?>
+                            "<?= $indicador['educacao_pesquisa'] ?>",
+                        <?php endforeach; ?>
+                    ]
+                },
+                {
+                    label: "Pontuação",
+                    fillColor: "rgba(220,220,220,0)",
+                    strokeColor : "#8A2BE2",
+                    pointColor : "#8A2BE2",
+                    pointStrokeColor : "#8A2BE2",
+                    pointHighlightFill : "#8A2BE2",
+                    pointHighlightStroke : "#8A2BE2",
+                    data : [
+                        <?php foreach ($indicadores as $indicador) : ?>
+                            "<?= $indicador['pontuacao'] ?>",
+                        <?php endforeach; ?>
+                    ]
+                },
+
+            ]
+
+        };
+
+    window.onload = function(){
+        var ctx = document.getElementById("canvas").getContext("2d");
+        window.myLine = new Chart(ctx).Line(lineChartData, {
+            responsive: true,
+            multiTooltipTemplate: "<%= datasetLabel %> - <%= value %>"
+        });
+    }
+
+
+    </script>

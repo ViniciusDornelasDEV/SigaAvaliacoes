@@ -1,0 +1,157 @@
+ <div class="container theme-showcase" role="main" style="margin-bottom:10px;padding:0px;">
+  <ol class="breadcrumb" style="margin-bottom: 0px;">
+    <li><a href="<?= $this->url('administradorAvaliacoesCallCenter'); ?>">Lista de avaliações</a></li>
+    <li><a href="<?= $this->url('graficoPersonalizado'); ?>">Filtros do gráfico personalizado</a></li>
+    <li class="active">Visualizar gráfico personalizado</li>
+  </ol>
+</div>
+
+      <canvas id="canvas"></canvas>
+
+  <script>
+  <?php $cores = array(); ?>
+    var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
+    var lineChartData = {
+      labels : [
+        <?php foreach ($campos as $campo) : ?>
+          "<?= $campo['label']; ?>",
+        <?php endforeach; ?>
+      ],
+      datasets : [
+        <?php foreach ($avaliacoes as $avaliacao) : ?>
+        <?php 
+          $corR = rand(1, 255);
+          $corG = rand(1, 255);
+          $corB = rand(1, 255); 
+          $cores[$avaliacao['nome_empresa']]['R'] = $corR;
+          $cores[$avaliacao['nome_empresa']]['G'] = $corG;
+          $cores[$avaliacao['nome_empresa']]['B'] = $corB;
+        ?>
+        {
+          label: "<?= $avaliacao['nome_empresa']; ?>",
+          fillColor: "rgba(<?= $corR; ?>,<?= $corG; ?>,<?= $corB; ?>,0.2)",
+          strokeColor: "rgba(<?= $corR; ?>,<?= $corG; ?>,<?= $corB; ?>,1)",
+          pointColor: "rgba(<?= $corR; ?>,<?= $corG; ?>,<?= $corB; ?>,1)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(<?= $corR; ?>,<?= $corG; ?>,<?= $corB; ?>,1)",
+          data : [
+          <?php foreach ($campos as $campo) :?>
+            "<?= $avaliacao[$campo['nome_campo']]['valor']; ?>",
+          <?php endforeach; ?>
+          ]
+        },
+        <?php endforeach; ?>
+      ]
+
+    }
+    
+  window.onload = function(){
+    var ctx = document.getElementById("canvas").getContext("2d");
+    window.myLine = new Chart(ctx).Line(lineChartData, {
+      responsive: true,
+      showTooltips: false,
+      onAnimationComplete: function () {
+        var ctx = this.chart.ctx;
+        ctx.font = this.scale.font;
+        ctx.fillStyle = this.scale.textColor
+        ctx.textAlign = "center";
+        ctx.textBaseline = "bottom";
+
+        for (var dataIndex = 0; dataIndex < this.datasets[0].points.length; dataIndex++) {
+            // the following is pretty much a copy-paste from the Chart.js library
+            var tooltipLabels = [],
+                tooltipColors = [],
+                medianPosition = (function (index) {
+
+                    // Get all the points at that particular index
+                    var Elements = [],
+                        dataCollection,
+                        xPositions = [],
+                        yPositions = [],
+                        xMax,
+                        yMax,
+                        xMin,
+                        yMin;
+                    Chart.helpers.each(this.datasets, function (dataset) {
+                        dataCollection = dataset.points;
+                        if (dataCollection[dataIndex] && dataCollection[dataIndex].hasValue()) {
+                            Elements.push(dataCollection[dataIndex]);
+                        }
+                    });
+
+                    Chart.helpers.each(Elements, function (element) {
+                        xPositions.push(element.x);
+                        yPositions.push(element.y);
+
+                        //Include any colour information about the element
+                        tooltipLabels.push(Chart.helpers.template(this.options.multiTooltipTemplate, element));
+                        tooltipColors.push({
+                            fill: element._saved.fillColor || element.fillColor,
+                            stroke: element._saved.strokeColor || element.strokeColor
+                        });
+
+                    }, this);
+
+                    yMin = Chart.helpers.min(yPositions);
+                    yMax = Chart.helpers.max(yPositions);
+
+                    xMin = Chart.helpers.min(xPositions);
+                    xMax = Chart.helpers.max(xPositions);
+
+                    return {
+                        x: (xMin > this.chart.width / 2) ? xMin : xMax,
+                        y: (yMin + yMax) / 2
+                    };
+                }).call(this, dataIndex);
+
+            new Chart.MultiTooltip({
+                x: medianPosition.x,
+                y: medianPosition.y,
+                xPadding: this.options.tooltipXPadding,
+                yPadding: this.options.tooltipYPadding,
+                xOffset: this.options.tooltipXOffset,
+                fillColor: this.options.tooltipFillColor,
+                textColor: this.options.tooltipFontColor,
+                fontFamily: this.options.tooltipFontFamily,
+                fontStyle: this.options.tooltipFontStyle,
+                fontSize: this.options.tooltipFontSize,
+                titleTextColor: this.options.tooltipTitleFontColor,
+                titleFontFamily: this.options.tooltipTitleFontFamily,
+                titleFontStyle: this.options.tooltipTitleFontStyle,
+                titleFontSize: this.options.tooltipTitleFontSize,
+                cornerRadius: this.options.tooltipCornerRadius,
+                labels: tooltipLabels,
+                legendColors: tooltipColors,
+                legendColorBackground: this.options.multiTooltipKeyBackground,
+                title: this.scale.xLabels[dataIndex],
+                chart: this.chart,
+                ctx: this.chart.ctx,
+                custom: this.options.customTooltips
+            }).draw();
+        }
+        /*this.datasets.forEach(function (dataset) {
+            dataset.points.forEach(function (points) {
+                ctx.fillText(points.value, points.x, points.y - 10);
+            });
+        })*/
+    }
+    });
+    
+    //document.getElementById("legenda").innerHTML = window.myLine.generateLegend();
+  }
+  </script>
+
+
+<div class="container theme-showcase" role="main" style="margin-bottom:10px;padding:0px;">
+  <row>
+  <?php foreach ($cores as $empresa => $cor) : ?>
+  <div class='col-sm-1'>
+    <div style="width: 15px; height: 15px;background-color: rgba(<?= $cor['R'] ?>, <?= $cor['G'] ?>, <?= $cor['B'] ?>, 1);">
+
+    </div>
+    <?= $empresa; ?>
+  </div>
+  <?php endforeach; ?>
+  </row>
+</div>

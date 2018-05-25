@@ -1,0 +1,81 @@
+ <h1>Avaliação call center - <?= $empresa->nome_empresa; ?></h1>
+
+<div style="display:none"><input name="unidade" id="unidade" value="Formulário de Auto Avaliação" type="text"></div>
+<a href="<?= $this->url('administradorAvaliacoesCallCenter'); ?>" class="acesso-usuario db"> Visualizar avaliações</a>
+<div class="formulario restrito">
+
+<div class="pager-form">
+	<a class="link-arquivos active" data-slide-index="4" href="#"><?= $this->converterData($dataReferencia); ?></a>
+</div>
+
+<div style="max-width: 100%;" class="bx-wrapper"><div style="width: 100%; overflow: hidden; position: relative; height: auto;" class="bx-viewport"><ul style="width: 615%; position: relative; transition-duration: 0s; transform: translate3d(0px, 0px, 0px);" class="slider-form">
+<li style="float: left; list-style: outside none none; position: relative; width: 992px;"> 
+
+<div class="form-auditoria">
+
+<form class="form-inline" name="formAgendamento" id="formCallcenter" enctype="multipart/form-data" role="form" method="POST" action="#">
+
+<?php 
+  //CRIAR UMA PARTIAL, USAR FORM E CAMPOS
+  echo $this->partial('form/callcenter', array('form'=> $formAvaliacao, 'campos'=> $campos));
+?>
+
+</div>
+<!--<p><input name="enviar" id="enviar" value="Enviar" type="submit"></p>-->
+<div class="bx-controls bx-has-controls-direction"><div class="bx-controls-direction"><input name="enviar" id="enviar" value="Continuar" class="bx-next" style="background: #036fb7 none repeat scroll 0 0;" type="submit"></div></div>
+</form>
+
+</li>
+</ul>
+</div>
+
+</div>
+</div>
+
+<style type="text/css">
+	.errovalidacao{
+		font-weight: bold;
+		color: red;
+	}
+</style>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+	$("#tempo_espera").mask("999:99:99");
+	$("#tempo_atendimento").mask("999:99:99");
+	$("#tempo_logado").mask("9999:99:99");
+	
+	$("#confirmacao_geral").mask("999.99%");
+	$("#agendamento_geral_porcentagem").mask("999.99%");
+	$("#abandonadas_atendidas_hora").mask("999.99%");
+	$("#abandonadas_atendidas_dia").mask("999.99%");
+	$("#abandono_callback").mask("999.99%");
+	$("#d0").mask("999.99%");
+	$("#d1").mask("999.99%");
+	$("#d2").mask("999.99%");
+
+	$("#agendamento").blur(function() {
+	  metaDiaria = <?= $metaDiaria; ?>;
+	  agendamento = $("#agendamento").val();
+	  diferencaDiaria = agendamento - metaDiaria;
+	  $("#diferenca").val(diferencaDiaria);
+
+	  //calcular diferença na média mensal
+	  metaMensal = <?= $metaMensal; ?>;
+	  diferencaMensal = metaMensal - agendamento;
+	  $("#meta_agendamento_mensal").val(diferencaMensal);
+
+	  //calcular meta diária restante
+	  <?php
+	  	if($subtrairDias){
+	  		$diasRestantes = $diasRestantes-1;
+	  	}
+	  ?>
+	  metaDiasRestam = diferencaMensal/<?= $diasRestantes; ?>;
+	  metaDiasRestam = metaDiasRestam.toFixed(2);
+	  $("#meta_agendamento_mensal_dias").val(metaDiasRestam);
+	  $("#dias_meta").val(<?= $diasRestantes; ?>);
+	});
+
+  });
+</script>

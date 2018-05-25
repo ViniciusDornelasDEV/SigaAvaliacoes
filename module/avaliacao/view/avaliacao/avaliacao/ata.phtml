@@ -1,0 +1,66 @@
+ <h1>Formulário de Auto Avaliação</h1>
+<!--
+  Livedate: 08.05.2015 21:07:23 / Killdate: 05.05.2025 21:07:23 
+-->
+<div style="display:none"><input name="unidade" id="unidade" value="Formulário de Auto Avaliação" type="text"></div>
+<a href="<?= $this->url('avaliacoesEmpresa'); ?>" class="acesso-usuario db"> Para ver os resuldados dos meses anteriores clique aqui</a>
+<div class="formulario restrito">
+
+<div class="pager-form">
+  <a class="link-auditoria" data-slide-index="0" href="#">Agendamento</a>
+  <a class="link-comercial" data-slide-index="0" href="#">Comercial</a>
+  <a class="link-processo" data-slide-index="1" href="#">Processos e Produção</a>
+  <a class="link-qualidade" data-slide-index="2" href="#">Qualidade e Segurança</a>
+  <a class="link-seguranca" data-slide-index="3" href="#">Experiência e satisfação do paciente</a>
+  <a class="link-ata active" data-slide-index="3" href="#">Plano de ação</a>
+  <a class="link-arquivos" data-slide-index="4" href="<?= $this->url('avaliacaoArquivos', array('ano' => $ano_referencia, 'mes' => $mes_referencia)); ?>">Arquivos SIGA para download</a>
+</div>
+
+<div style="max-width: 100%;" class="bx-wrapper"><div style="width: 100%; overflow: hidden; position: relative; height: auto;" class="bx-viewport"><ul style="width: 615%; position: relative; transition-duration: 0s; transform: translate3d(0px, 0px, 0px);" class="slider-form">
+<li style="float: left; list-style: outside none none; position: relative; width: 992px;"> 
+
+<div class="form-ata">
+
+
+<?php 
+  //Caso usuário não esteja autorizado a responder esta aba exibir link para a próxima
+  if(!$acessoAba):
+?>
+<label>
+  <?php if($avaliacaoRespondida): ?>
+    Esta aba já foi respondida por um usuário!
+  <?php else: ?>
+    Esta categoria será preenchida por outro usuário, pule para a próxima etapa!
+  <?php endif; ?>
+</label>
+
+<div class="bx-controls bx-has-controls-direction"><div class="bx-controls-direction"><a class="bx-next" href="<?= $this->url('avaliacaoArquivos'); ?>">Continuar</a></div></div>
+
+<?php else: ?>
+
+<font color="#ff0000"><b>Todos os campos são de preenchimento obrigatório para o envio do formulário.</b><br><br></font>
+<?php if($formInvalido): ?>
+  <font color="#ff0000"><b>Existem campos em branco, por favor verifique o formulário.</b><br><br></font>
+<?php endif; ?>
+<form class="form-inline" name="formAgendamento" id="formAgendamento" enctype="multipart/form-data" role="form" method="POST" action="#">
+<h3>Vincular plano de ação</h3>
+<p class="pergunta-1">
+<?= $this->formElement($form->get('observacoes')); ?>
+<?= $this->formElement($form->get('anexo')); ?></p>
+
+<div id="visualizar"></div>
+</div>
+
+<div class="bx-controls bx-has-controls-direction"><div class="bx-controls-direction"><input name="enviar" id="enviar" value="Enviar" type="submit"></div></div>
+<!--<p><input name="enviar" id="enviar" value="Enviar" type="submit"></p>-->
+</form>
+
+<?php endif; ?>
+</li>
+</ul>
+</div>
+
+</div>
+</div>
+
+

@@ -1,0 +1,14 @@
+<?php if(!$this->params)$this->params = array();?>
+
+<?php $form->prepare(); ?>
+
+<?php if($this->route || $this->route):?>
+    <?php $form->setAttribute('action', $this->url($this->route, $this->params)); ?>
+<?php endif; ?>
+
+<?= $this->form()->openTag($form); ?>
+<?php $formElements = $form->getElements(); ?>
+        <?= $this->formElement($formElements['login']); ?>
+        <?= $this->formElement($formElements['password']); ?>
+            <?= $this->formElement($formElements['submit']); ?>
+<?= $this->form()->closeTag($form); ?>

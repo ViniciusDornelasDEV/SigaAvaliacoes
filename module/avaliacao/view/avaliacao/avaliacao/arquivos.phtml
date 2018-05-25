@@ -1,0 +1,103 @@
+ <h1>Formulário de Auto Avaliação</h1>
+<!--
+  Livedate: 08.05.2015 21:07:23 / Killdate: 05.05.2025 21:07:23 
+-->
+<a href="<?= $this->url('avaliacoesEmpresa'); ?>" class="acesso-usuario db"> Para ver os resuldados dos meses anteriores clique aqui</a>
+
+<div class="pager-form">
+  <?php 
+    if($redir){
+      if($redir == 1){
+        //visualizar avaliação(empresa)
+        $linkAgendamento = $this->url('avaliacaoAgendamentoVisualizar', array('mes' => $mes, 'ano' => $ano));
+        $linkComercial = $this->url('avaliacaoComercialVisualizar', array('mes' => $mes, 'ano' => $ano));
+        $linkProcessos = $this->url('avaliacaoProcessoVisualizar', array('mes' => $mes, 'ano' => $ano));
+        $linkQualidade = $this->url('avaliacaoQualidadeVisualizar', array('mes' => $mes, 'ano' => $ano));
+        $linkExperiencia = $this->url('avaliacaoSegurancaVisualizar', array('mes' => $mes, 'ano' => $ano));
+        $linkPlanoAcao = $this->url('avaliacaoAtaVisualizar', array('mes' => $mes, 'ano' => $ano));
+      }else{
+        //visualizar avaliação auditor
+        $linkAgendamento = $this->url('avaliacaoAgendamentoAudicao', array('id' => $avaliacao));
+        $linkComercial = $this->url('avaliacaoComercialAudicao', array('id' => $avaliacao));
+        $linkProcessos = $this->url('avaliacaoProcessoAudicao', array('id' => $avaliacao));
+        $linkQualidade = $this->url('avaliacaoQualidadeAudicao', array('id' => $avaliacao));
+        $linkExperiencia = $this->url('avaliacaoSegurancaAudicao', array('id' => $avaliacao));
+        $linkPlanoAcao = $this->url('avaliacaoAtaAudicao', array('id' => $avaliacao));
+      }
+    }else{
+      //links de avaliacao
+      $linkAgendamento = $this->url('avaliacaoAgendamento', array('mes' => $mes, 'ano' => $ano));
+      $linkComercial = '';
+      $linkProcessos = '';
+      $linkQualidade = '';
+      $linkExperiencia = '';
+      $linkPlanoAcao = '';
+    }
+
+    if($menu == 'H'){
+      $linkAgendamento = $this->url('historicoAgendamentoVisualizar', array('mes' => $mes, 'ano' => $ano));
+      $linkComercial = $this->url('historicoComercialVisualizar', array('mes' => $mes, 'ano' => $ano));
+      $linkProcessos = $this->url('historicoProcessoVisualizar', array('mes' => $mes, 'ano' => $ano));
+      $linkQualidade = $this->url('historicoQualidadeVisualizar', array('mes' => $mes, 'ano' => $ano));
+      $linkExperiencia = $this->url('historicoSegurancaVisualizar', array('mes' => $mes, 'ano' => $ano));
+      $linkPlanoAcao = $this->url('historicoAtaVisualizar', array('mes' => $mes, 'ano' => $ano));
+    }
+  ?>
+  <?php if($menu != 'S'): ?>
+  <a class="link-auditoria" data-slide-index="0" href="<?= $linkAgendamento; ?>">Agendamento</a>
+  <a class="link-comercial" data-slide-index="0" href="<?= $linkComercial; ?>">Comercial</a>
+  <a class="link-processo" data-slide-index="1" href="<?= $linkProcessos; ?>">Processos e Produção</a>
+  <a class="link-qualidade" data-slide-index="2" href="<?= $linkQualidade; ?>">Qualidade e Segurança</a>
+  <a class="link-seguranca" data-slide-index="3" href="<?= $linkExperiencia; ?>">Experiência e satisfação do paciente</a>
+  <a class="link-ata" data-slide-index="3" href="<?= $linkPlanoAcao; ?>">Plano de ação</a>
+  <?php endif; ?>
+  <a class="link-arquivos active" data-slide-index="4" href="#">Arquivos SIGA para download</a>
+</div>
+
+<div style="max-width: 100%;" class="bx-wrapper"><div style="width: 100%; overflow: hidden; position: relative; height: auto;" class="bx-viewport"><ul style="width: 615%; position: relative; transition-duration: 0s; transform: translate3d(0px, 0px, 0px);" class="slider-form">
+<li style="float: left; list-style: outside none none; position: relative; width: 992px;"> 
+
+<div class="form-arquivos">
+
+
+<h3>Arquivos SIGA para download</h3>
+<p class="pergunta-1">
+<?php if($arquivos->count() > 0): ?>
+<table style="width:80%;margin-bottom: 50px;">
+  <thead>
+    <tr>
+      <th style="text-align: left">Arquivo</th>
+      <th style="text-align: center">Download</th>
+    </tr>
+  </thead>
+  <tbody>
+<?php foreach ($arquivos as $arquivo) : ?>
+    <tr>
+      <td style="text-align: left"><?= $arquivo->nome ?></td>
+      <td style="text-align: center">
+        <img src="<?php echo $this->basePath('img/download.png') ?>" onclick="location.href='<?= $this->url('downloadArquivo', array('id' => $arquivo['id'])); ?>'" title="Download">
+      </td>
+    </tr>
+<?php endforeach; ?>
+  </tbody>
+</table>
+<?php else: ?>
+  <font color="#ff0000"><b>Não existem arquivos vinculados!</b><br><br></font>
+<?php endif; ?>
+
+<div id="visualizar"></div>
+</div>
+<form action="<?= $this->url('avaliacoesEmpresa'); ?>" method="POST">
+<div class="bx-controls bx-has-controls-direction"><div class="bx-controls-direction"><input name="enviar" id="enviar" value="Enviar" type="submit"></div></div>
+</form>
+<!--<p><input name="enviar" id="enviar" value="Enviar" type="submit"></p>-->
+
+
+</li>
+</ul>
+</div>
+
+</div>
+</div>
+
+

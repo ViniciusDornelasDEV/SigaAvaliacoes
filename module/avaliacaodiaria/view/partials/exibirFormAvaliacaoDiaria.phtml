@@ -1,0 +1,30 @@
+<?php 
+	$categoria = '';
+	$quantidadeCampos = 0;
+?>
+<?php foreach ($campos as $key => $campo) {
+
+	if($campo['aparecer'] == 'S'){
+		$quantidadeCampos++;
+
+		//se for uma nova categoria escrever o título da categoria
+		if($categoria != $campo['nome_categoria']){
+			$categoria = $campo['nome_categoria'];
+			echo '<h3>'.$campo['nome_categoria'].'</h3>';
+		}
+
+		//pegar elemento do form
+		$elemento = $form->get($campo['nome_campo']);
+
+		//escrever campo
+		echo '<p class="pergunta-'.$quantidadeCampos.'" style="margin-top:7px;">'.$elemento->getLabel();
+		echo '</p>';
+		
+		echo '<p class="pergunta-'.$quantidadeCampos.'2">';
+		echo $this->formElement($elemento);
+		echo $this->formElementErrors($elemento, array('class' => 'errovalidacao'));
+		echo '</p>';
+	}
+}
+
+?>
