@@ -1,9 +1,9 @@
 <?php 
 mb_internal_encoding("iso-8859-1");
-//$conecta = mysql_connect("mysql01.timesistemas1.hospedagemdesites.ws", "timesistemas1", "sqlyt4da51241") or print (mysql_error()); 
-//mysql_select_db("timesistemas1", $conecta) or print(mysql_error()); 
-$conecta = mysql_connect("localhost", "root", "") or print (mysql_error()); 
-mysql_select_db("bd_siga", $conecta) or print(mysql_error()); 
+$conecta = mysql_connect("mysql01.timesistemas1.hospedagemdesites.ws", "timesistemas1", "sqlyt4da51241") or print (mysql_error()); 
+mysql_select_db("timesistemas1", $conecta) or print(mysql_error()); 
+//$conecta = mysql_connect("localhost", "root", "") or print (mysql_error()); 
+//mysql_select_db("bd_siga", $conecta) or print(mysql_error()); 
 
 
 
