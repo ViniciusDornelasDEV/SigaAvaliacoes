@@ -58,6 +58,31 @@ class Agendamento Extends Base {
                 (SELECT tb_seguranca.ano AS ano, tb_seguranca.mes AS mes, tb_seguranca.empresa AS empresa, nome_empresa FROM tb_seguranca 
                     INNER JOIN tb_empresa AS e ON e.id = empresa
                     WHERE 1 = 1 '.$where.')  
+
+
+                UNION
+                (SELECT tb_agendamento_2018.ano AS ano, tb_agendamento_2018.mes AS mes, tb_agendamento_2018.empresa AS empresa, nome_empresa FROM tb_agendamento_2018 
+                    INNER JOIN tb_empresa AS e ON e.id = empresa
+                    WHERE 1 = 1 '.$where.') 
+                UNION 
+                (SELECT tb_comercial_2018.ano AS ano, tb_comercial_2018.mes AS mes, tb_comercial_2018.empresa AS empresa, nome_empresa FROM tb_comercial_2018 
+                    INNER JOIN tb_empresa AS e ON e.id = empresa
+                    WHERE 1 = 1 '.$where.') 
+                UNION
+                (SELECT tb_processo_2018.ano AS ano, tb_processo_2018.mes AS mes, tb_processo_2018.empresa AS empresa, nome_empresa FROM tb_processo_2018 
+                    INNER JOIN tb_empresa AS e ON e.id = empresa
+                    WHERE 1 = 1 '.$where.') 
+                UNION 
+                (SELECT tb_qualidade_2018.ano AS ano, tb_qualidade_2018.mes AS mes, tb_qualidade_2018.empresa AS empresa, nome_empresa FROM tb_qualidade_2018 
+                    INNER JOIN tb_empresa AS e ON e.id = empresa
+                    WHERE 1 = 1 '.$where.') 
+                UNION 
+                (SELECT tb_seguranca_2018.ano AS ano, tb_seguranca_2018.mes AS mes, tb_seguranca_2018.empresa AS empresa, nome_empresa FROM tb_seguranca_2018 
+                    INNER JOIN tb_empresa AS e ON e.id = empresa
+                    WHERE 1 = 1 '.$where.') 
+
+
+
                 ORDER BY ano, mes, empresa';
         $sql = str_replace('`', '', $sql);
         $resultSet = $adapter->query($sql, \Zend\Db\Adapter\Adapter::QUERY_MODE_EXECUTE);

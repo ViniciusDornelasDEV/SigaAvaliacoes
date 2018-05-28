@@ -100,7 +100,8 @@ Arquivos SIGA para download
                   <td style="text-align: center"><?= $this->numeroMes($avaliacao['mes']); ?></td>
                   <td style="text-align: center"><?= $avaliacao['ano']; ?></td>
                   <td style="text-align: center;">
-                    <?php if($avaliacao['ano'] < 2017 || ($avaliacao['ano'] == 2017 && $avaliacao['mes'] <= 4)): ?>
+
+                    <?php if($avaliacao['ano'] < 2018 ||  ($avaliacao['ano'] <= 2018 && $avaliacao['mes'] < 5)): ?>
                       <img src="<?= $this->basePath('img/visualizar.png'); ?>" title="Editar" 
                       onclick="location.href='<?= $this->url('historicoAgendamentoVisualizar', array('mes' => $avaliacao['mes'], 'ano' => $avaliacao['ano'])); ?>'" style="cursor: pointer;">
                     <?php else: ?>

@@ -32,7 +32,7 @@ class HistoricoavaliacaoController extends DefaultController
 
         $usuario = $this->getServiceLocator()->get('session')->read();
         
-        $campos = $this->getServiceLocator()->get('CampoEmpresa')->getCamposEmpresaByAba(11, $usuario['empresa'])->toArray();
+        $campos = $this->getServiceLocator()->get('CampoEmpresa')->getCamposEmpresaByAba(16, $usuario['empresa'])->toArray();
         $formAvaliacao = new agendamentoForm('frmAgendamento', $this->getServiceLocator(), $campos);
         $serviceAgendamento = $this->getServiceLocator()->get('Agendamento2');
         
@@ -85,7 +85,7 @@ class HistoricoavaliacaoController extends DefaultController
 
         $usuario = $this->getServiceLocator()->get('session')->read();
         
-        $campos = $this->getServiceLocator()->get('CampoEmpresa')->getCamposEmpresaByAba(15, $usuario['empresa'])->toArray();
+        $campos = $this->getServiceLocator()->get('CampoEmpresa')->getCamposEmpresaByAba(20, $usuario['empresa'])->toArray();
         $formAvaliacao = new comercialForm('frmComercial', $this->getServiceLocator(), $campos);
         $serviceComercial = $this->getServiceLocator()->get('Comercial2');
         
@@ -137,7 +137,7 @@ class HistoricoavaliacaoController extends DefaultController
         $this->layout('layout/avaliacaocliente');
         $usuario = $this->getServiceLocator()->get('session')->read();
 
-        $campos = $this->getServiceLocator()->get('CampoEmpresa')->getCamposEmpresaByAba(12, $usuario['empresa'])->toArray();
+        $campos = $this->getServiceLocator()->get('CampoEmpresa')->getCamposEmpresaByAba(17, $usuario['empresa'])->toArray();
         
         $formAvaliacao = new processoForm('frmProcesso', $this->getServiceLocator(), $campos);
         $serviceProcesso = $this->getServiceLocator()->get('Processo2');
@@ -190,7 +190,7 @@ class HistoricoavaliacaoController extends DefaultController
         $this->layout('layout/avaliacaocliente');
         $usuario = $this->getServiceLocator()->get('session')->read();
         
-        $campos = $this->getServiceLocator()->get('CampoEmpresa')->getCamposEmpresaByAba(13, $usuario['empresa'])->toArray();
+        $campos = $this->getServiceLocator()->get('CampoEmpresa')->getCamposEmpresaByAba(18, $usuario['empresa'])->toArray();
         $formAvaliacao = new qualidadeForm('frmQualidade', $this->getServiceLocator(), $campos);
         $serviceQualidade = $this->getServiceLocator()->get('Qualidade2');
         
@@ -241,7 +241,7 @@ class HistoricoavaliacaoController extends DefaultController
         $this->layout('layout/avaliacaocliente');
         $usuario = $this->getServiceLocator()->get('session')->read();
         
-        $campos = $this->getServiceLocator()->get('CampoEmpresa')->getCamposEmpresaByAba(14, $usuario['empresa'])->toArray();
+        $campos = $this->getServiceLocator()->get('CampoEmpresa')->getCamposEmpresaByAba(19, $usuario['empresa'])->toArray();
         $formAvaliacao = new segurancaForm('frmSeguranca', $this->getServiceLocator(), $campos);
         $serviceSeguranca = $this->getServiceLocator()->get('Seguranca2');
         

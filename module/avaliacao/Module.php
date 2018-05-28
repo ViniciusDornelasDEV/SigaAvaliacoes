@@ -113,31 +113,31 @@ class Module
                 },
 
                 'Agendamento2' => function($sm) {
-                    $tableGateway = new TableGateway('tb_agendamento_2017', $sm->get('db_adapter_main'));
+                    $tableGateway = new TableGateway('tb_agendamento_2018', $sm->get('db_adapter_main'));
                     $updates = new Model\Agendamento($tableGateway);
                     $updates->setServiceLocator($sm);
                     return $updates;
                 },
                 'Comercial2' => function($sm) {
-                    $tableGateway = new TableGateway('tb_comercial_2017', $sm->get('db_adapter_main'));
+                    $tableGateway = new TableGateway('tb_comercial_2018', $sm->get('db_adapter_main'));
                     $updates = new Model\Comercial($tableGateway);
                     $updates->setServiceLocator($sm);
                     return $updates;
                 },
                 'Processo2' => function($sm) {
-                    $tableGateway = new TableGateway('tb_processo_2017', $sm->get('db_adapter_main'));
+                    $tableGateway = new TableGateway('tb_processo_2018', $sm->get('db_adapter_main'));
                     $updates = new Model\Processo($tableGateway);
                     $updates->setServiceLocator($sm);
                     return $updates;
                 },
                 'Qualidade2' => function($sm) {
-                    $tableGateway = new TableGateway('tb_qualidade_2017', $sm->get('db_adapter_main'));
+                    $tableGateway = new TableGateway('tb_qualidade_2018', $sm->get('db_adapter_main'));
                     $updates = new Model\Qualidade($tableGateway);
                     $updates->setServiceLocator($sm);
                     return $updates;
                 },
                 'Seguranca2' => function($sm) {
-                    $tableGateway = new TableGateway('tb_seguranca_2017', $sm->get('db_adapter_main'));
+                    $tableGateway = new TableGateway('tb_seguranca_2018', $sm->get('db_adapter_main'));
                     $updates = new Model\Seguranca($tableGateway);
                     $updates->setServiceLocator($sm);
                     return $updates;
