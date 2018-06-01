@@ -31,7 +31,7 @@ Arquivos SIGA para download
       <?php if($avalAbertas > 0): ?>
         <?php if($avalAbertas == 1): ?>
           <div class="container theme-showcase" role="main" style="margin-bottom:80px;padding:0px;">
-            <a href="<?= $this->url('avaliacaoAgendamento', array('mes' => $avaliacaoAberta['mes_referencia'], 'ano' => $avaliacaoAberta['ano_referencia'])); ?>" class="acesso-usuario db"> Existem avaliações em aberto para sua empresa</a>
+            <a href="<?= $this->url('avaliacaoProcesso', array('mes' => $avaliacaoAberta['mes_referencia'], 'ano' => $avaliacaoAberta['ano_referencia'])); ?>" class="acesso-usuario db"> Existem avaliações em aberto para sua empresa</a>
           </div>
         <?php else: ?>
           <div class="container theme-showcase" role="main" style="margin-bottom:80px;padding:0px;">
