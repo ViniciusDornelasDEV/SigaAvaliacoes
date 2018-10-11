@@ -101,7 +101,7 @@ class EmpresaController extends BaseController
         $formArquivo = new arquivoForm('formArquivo');
 
         $serviceArquivo = $this->getServiceLocator()->get('EmpresaArquivo');
-        $arquivos = $serviceArquivo->getRecords($idEmpresa, 'empresa');
+        $arquivos = $serviceArquivo->getRecords($idEmpresa, 'empresa', array('*'), 'nome');
 
         //Alterar empresa
         if($this->getRequest()->isPost()){
@@ -178,11 +178,17 @@ class EmpresaController extends BaseController
         $serviceArquivo = $this->getServiceLocator()->get('EmpresaArquivo');
         $arquivo = $serviceArquivo->getRecord($this->params()->fromRoute('id'));
 
-        if (file_exists($arquivo->arquivo)) {
-            //Não deletar arquivo, pois quando replico um arquivo ele utiliza o arquivo da empresa
-            //unlink($arquivo->arquivo);
+
+        if($this->params()->fromRoute('todos') == 'S'){
+            //deletar todos
+            if (file_exists($arquivo->arquivo)) {
+                unlink($arquivo->arquivo);
+            }
+            $res = $serviceArquivo->delete(array('arquivo' => $arquivo['arquivo']));
+        }else{
+            $res = $serviceArquivo->delete(array('id' => $this->params()->fromRoute('id')));
         }
-        $res = $serviceArquivo->delete(array('id' => $this->params()->fromRoute('id')));
+
         if($res){
            $this->flashMessenger()->addSuccessMessage('Arquivo excluído com sucesso!');  
         }else{

@@ -72,7 +72,7 @@ return array(
             'arquivoDeletar' => array(
                 'type' => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
-                    'route'    => '/empresa/deletararquivo[/:id]',
+                    'route'    => '/empresa/deletararquivo[/:id][/:todos]',
                     'constraints' => array(
                         'id'     => '[0-9]+',
                     ),

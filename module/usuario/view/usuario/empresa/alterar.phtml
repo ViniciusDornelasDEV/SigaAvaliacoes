@@ -74,7 +74,11 @@
                   
                   <span style="margin-right:4px;"></span>  
                   
-                  <img src="<?php echo $this->basePath('img/deletar.png') ?>" style="cursor: pointer;" onclick="alerta('<?= $this->url('arquivoDeletar', array('id' => $arquivo->id)); ?>', 'deletar');" title="Deletar">
+                  <img src="<?php echo $this->basePath('img/deletar.png') ?>" style="cursor: pointer;" onclick="alerta('<?= $this->url('arquivoDeletar', array('id' => $arquivo->id)); ?>', 'deletar');" title="Deleta desta empresa">
+
+                  <span style="margin-right:4px;"></span>  
+                  
+                  <img src="<?php echo $this->basePath('img/error.png') ?>" style="cursor: pointer;" onclick="alerta('<?= $this->url('arquivoDeletar', array('id' => $arquivo->id, 'todos' => 'S')); ?>', 'deletar');" title="Deletar de todas as empresas">
                 </td>
                 
               

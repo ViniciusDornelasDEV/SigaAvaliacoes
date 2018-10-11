@@ -174,7 +174,7 @@ class AvaliacaoController extends DefaultController
             $empresa = $usuario['empresa'];
         }   
        
-        $arquivos = $this->getServiceLocator()->get('EmpresaArquivo')->getRecords(1, 'empresa');
+        $arquivos = $this->getServiceLocator()->get('EmpresaArquivo')->getRecords(1, 'empresa', array('*'), 'nome');
         return new ViewModel(array('arquivos' => $arquivos, 'redir' => $redir, 'ano' => $ano, 'mes' => $mes, 'avaliacao' => $avaliacao, 'menu' => $menu));
     }
 

@@ -391,7 +391,7 @@ class AvaliacaoadmController extends DefaultController
         
         $empresa = $this->params()->fromRoute('empresa');
 
-        $arquivos = $this->getServiceLocator()->get('EmpresaArquivo')->getRecords($empresa, 'empresa');
+        $arquivos = $this->getServiceLocator()->get('EmpresaArquivo')->getRecords($empresa, 'empresa', array('*'), 'nome');
         return new ViewModel(array(
                                 'arquivos' => $arquivos,
                                 'empresa'           => $empresa,
