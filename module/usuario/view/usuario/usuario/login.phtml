@@ -66,7 +66,8 @@
 	            <h2>RH</h2>
 	            <div class="cor6">
 	            	<input type="hidden" value="5" name="simulador">
-	                <input type="text" name="login" placeholder="Nome"/>
+	                <input type="text" name="cpf" id="cpf" placeholder="cpf"/>
+	                <input type="text" name="email" placeholder="Email"/>
 	                <input type="password" name="password" placeholder="Senha"/>
 	                <input type="submit" name="simulador" value="Enviar"/>
 	            </div>
@@ -86,3 +87,9 @@
         </article>
         
     </div>
+
+    <script type="text/javascript">
+	  $(document).ready(function() {
+		$("#cpf").mask("999.999.999-99");
+	  });
+</script>
