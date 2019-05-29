@@ -20,7 +20,17 @@ class IndexController extends BaseController
 {
     public function indexAction()
     {   
-        
-        return new ViewModel(array());
+    	/*$serviceCampo = $this->getServiceLocator()->get('Campo');
+    	$empresas = $this->getServiceLocator()->get('Empresa')->fetchAll()->toArray();
+    	$sql = '';
+        for ($i=344; $i < 359; $i++) { 
+        	$campo = $serviceCampo->getRecord($i);
+        	foreach ($empresas as $empresa) {
+        		$sql .= 'INSERT INTO tb_campo_empresa (aba, campo, empresa, categoria_questao, aparecer, obrigatorio, label) VALUES
+					(3, '.$i.', '.$empresa['id'].', 65, "S", "S", "'.$campo['label'].'");<br>';
+        	}
+        }*/
+    	
+    	return new ViewModel(array());
     }
 }
