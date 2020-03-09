@@ -15,7 +15,7 @@ return array(
         'avaliacaodiaria',
         'remuneracaomedica',
         //'DOMPDFModule',
-        //'ZF2Excel',
+        'ZF2Excel',
     ),
     'module_listener_options' => array(
         'module_paths' => array(

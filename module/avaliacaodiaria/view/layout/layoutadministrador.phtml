@@ -18,6 +18,7 @@
         <!-- Scripts -->
         <?php 
         echo $this->headScript()
+            ->prependFile($this->basePath() . '/js/bootbox.min.js')
             ->prependFile($this->basePath() . '/js/funcoes.js')
             ->prependFile($this->basePath() . '/js/Chart.js-master/Chart.min.js')
             ->prependFile($this->basePath() . '/js/jquery.maskedinput.min.js')

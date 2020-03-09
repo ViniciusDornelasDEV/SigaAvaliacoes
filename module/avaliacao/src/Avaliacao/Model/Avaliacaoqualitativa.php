@@ -116,7 +116,7 @@ class Avaliacaoqualitativa Extends Base {
                         ->equalTo('m.usuario_diretor2', $diretor)
                     ->unnest;
             }
-            //$select->where(array('m.ativo' => 'S'));
+            $select->where(array('m.ativo' => 'S'));
             
             $select->where($params);
 
